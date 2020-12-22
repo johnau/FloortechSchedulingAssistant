@@ -1,6 +1,6 @@
 package tech.jmcs.floortech.scheduling.app.datasource.model;
 
-import tech.jmcs.floortech.scheduling.app.types.EndCapCW260;
+import tech.jmcs.floortech.scheduling.app.types.EndCapType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,9 +20,9 @@ public class TrussData {
 
     private String type = "NA";
 
-    private EndCapCW260 leftEndcap = EndCapCW260.STANDARD;
+    private EndCapType leftEndcap = EndCapType.STANDARD;
 
-    private EndCapCW260 rightEndcap = EndCapCW260.STANDARD;
+    private EndCapType rightEndcap = EndCapType.STANDARD;
 
     private boolean airConPeno = false;
 
@@ -65,19 +65,19 @@ public class TrussData {
         this.type = type;
     }
 
-    public EndCapCW260 getLeftEndcap() {
+    public EndCapType getLeftEndcap() {
         return leftEndcap;
     }
 
-    public void setLeftEndcap(EndCapCW260 leftEndcap) {
+    public void setLeftEndcap(EndCapType leftEndcap) {
         this.leftEndcap = leftEndcap;
     }
 
-    public EndCapCW260 getRightEndcap() {
+    public EndCapType getRightEndcap() {
         return rightEndcap;
     }
 
-    public void setRightEndcap(EndCapCW260 rightEndcap) {
+    public void setRightEndcap(EndCapType rightEndcap) {
         this.rightEndcap = rightEndcap;
     }
 

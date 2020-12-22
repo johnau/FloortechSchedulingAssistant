@@ -9,13 +9,17 @@ import javafx.scene.layout.VBox;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tech.jmcs.floortech.scheduling.app.ExtractedDataToScheduleConverter;
-import tech.jmcs.floortech.scheduling.app.schedulewriter.ExcelScheduleScanner;
 import tech.jmcs.floortech.scheduling.app.settings.SettingsHolder;
 import tech.jmcs.floortech.scheduling.app.settings.SettingsLoader;
 import tech.jmcs.floortech.scheduling.app.settings.SettingsWriter;
+import tech.jmcs.floortech.scheduling.ui.DataTargetHolder;
 import tech.jmcs.floortech.scheduling.ui.ExtractorComponentHolderFX;
 import tech.jmcs.floortech.scheduling.ui.ExtractorManagerFX;
 import tech.jmcs.floortech.scheduling.ui.commitbutton.CommitButtonView;
+import tech.jmcs.floortech.scheduling.ui.commitbutton.addrowchoices.AddRowChoicesView;
+import tech.jmcs.floortech.scheduling.ui.commitbutton.conflictchoices.ConflictChoicesView;
+import tech.jmcs.floortech.scheduling.ui.commitbutton.nomatchchoices.NoMatchChoicesPresenter;
+import tech.jmcs.floortech.scheduling.ui.commitbutton.nomatchchoices.NoMatchChoicesView;
 import tech.jmcs.floortech.scheduling.ui.dataframe.DataFrameView;
 import tech.jmcs.floortech.scheduling.ui.ExtractedDataHolderFX;
 import tech.jmcs.floortech.scheduling.ui.datatarget.DataTargetView;
@@ -44,6 +48,9 @@ public class DashboardPresenter implements Initializable {
     @Inject private DataTargetView dataTargetView;
     @Inject private CommitButtonView commitButtonView;
     @Inject private DataFrameView dataFrameView;
+    @Inject private NoMatchChoicesView noMatchChoiceView;
+    @Inject private ConflictChoicesView conflictChoicesView;
+    @Inject private AddRowChoicesView addRowChoicesView;
 
     @Inject private SettingsLoader settingsLoader;
     @Inject private SettingsWriter settingsWriter;
@@ -52,17 +59,18 @@ public class DashboardPresenter implements Initializable {
     @Inject private ExtractorComponentHolderFX extractorHolder;
     @Inject private ExtractorManagerFX extractorManager;
     @Inject private ExtractedDataHolderFX extractedDataHolder;
+    @Inject private DataTargetHolder targetHolder;
 
     @FXML private VBox leftPanelVbox; // left panel
-    @FXML private VBox quickLookupVbox;
-    @FXML private VBox extractorsVbox;
-    @FXML private VBox extractButtonVbox;
-    @FXML private VBox dataTargetVbox;
-    @FXML private VBox commitButtonVbox;
+    @FXML private VBox leftVbox1;
+    @FXML private VBox leftVbox2;
+    @FXML private VBox leftVbox3;
+    @FXML private VBox leftVbox4;
+    @FXML private VBox leftVbox5;
     @FXML private AnchorPane rightPanelAnchorPane; // right panel
     @FXML private HBox toolbarHbox; // top right panel (alongside header / title)
 
-    private Scene settingsScene;
+//    private Scene settingsScene;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) { // resource bundle populated from *.properties
@@ -87,11 +95,11 @@ public class DashboardPresenter implements Initializable {
 
     private void setupDashboard() {
         settingsButtonView.getViewAsync(this.toolbarHbox.getChildren()::add);
-        quickLookupView.getViewAsync(this.quickLookupVbox.getChildren()::add);
-        extractorsView.getViewAsync(this.extractorsVbox.getChildren()::add);
-        extractButtonView.getViewAsync(this.extractButtonVbox.getChildren()::add);
-        dataTargetView.getViewAsync(this.dataTargetVbox.getChildren()::add);
-        commitButtonView.getViewAsync(this.commitButtonVbox.getChildren()::add);
+        quickLookupView.getViewAsync(this.leftVbox1.getChildren()::add);
+        extractorsView.getViewAsync(this.leftVbox2.getChildren()::add);
+        extractButtonView.getViewAsync(this.leftVbox3.getChildren()::add);
+        dataTargetView.getViewAsync(this.leftVbox4.getChildren()::add);
+        commitButtonView.getViewAsync(this.leftVbox5.getChildren()::add);
         dataFrameView.getViewAsync(this.rightPanelAnchorPane.getChildren()::add);
     }
 

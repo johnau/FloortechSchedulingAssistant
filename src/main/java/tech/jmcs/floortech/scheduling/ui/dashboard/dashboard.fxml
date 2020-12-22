@@ -32,11 +32,11 @@
                      <children>
                         <VBox fx:id="leftPanelVbox" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <VBox fx:id="quickLookupVbox" VBox.vgrow="NEVER" />
-                              <VBox fx:id="extractorsVbox" VBox.vgrow="NEVER" />
-                              <VBox fx:id="extractButtonVbox" VBox.vgrow="NEVER" />
-                              <VBox fx:id="dataTargetVbox" VBox.vgrow="NEVER" />
-                              <VBox fx:id="commitButtonVbox" VBox.vgrow="NEVER" />
+                              <VBox fx:id="leftVbox1" VBox.vgrow="NEVER" />
+                              <VBox fx:id="leftVbox2" VBox.vgrow="NEVER" />
+                              <VBox fx:id="leftVbox3" VBox.vgrow="NEVER" />
+                              <VBox fx:id="leftVbox4" VBox.vgrow="NEVER" />
+                              <VBox fx:id="leftVbox5" VBox.vgrow="NEVER" />
                            </children></VBox>
                      </children>
                   </AnchorPane>

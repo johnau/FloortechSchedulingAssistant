@@ -39,6 +39,10 @@ public class XLSHelper {
         return null;
     }
 
+    public static ExcelCellAddress findCellByName(Sheet schSheet, Integer column, String name, DataFormatter dataFormatter) {
+        return findCellByName(schSheet, column, name, dataFormatter, false);
+    }
+
     /**
      * Searches a column for a matching string (name).  Returns an ExcelCellAddress with the matched row (and col).
      * If not found, returns null.
@@ -46,7 +50,7 @@ public class XLSHelper {
      * @return ExcelCellAddress or Null
      * @throws ExcelScheduleWriterException
      */
-    public static ExcelCellAddress findCellByName(Sheet schSheet, Integer column, String name, DataFormatter dataFormatter) {
+    public static ExcelCellAddress findCellByName(Sheet schSheet, Integer column, String name, DataFormatter dataFormatter, Boolean useOptimisticSearch) {
         LOG.debug("Searching for cell value: {} (in column {})", name, column);
         for (Row row : schSheet) {
             Cell cell = getCellByColumnIndex(row, column);
@@ -58,6 +62,8 @@ public class XLSHelper {
             String cellValue = dataFormatter.formatCellValue(cell);
             LOG.trace("At cell value: {} (trying to find {})", cellValue, name);
 
+            // first test upper case exact match
+
             String cellValue_ucase = cellValue.toUpperCase().trim().replaceAll(" +", " ");
             String name_ucase = name.toUpperCase().trim().replaceAll(" +", " ");
 
@@ -66,8 +72,10 @@ public class XLSHelper {
                 return address;
             }
 
-            String cellValue_stripped = cellValue_ucase.replaceAll("[^A-Za-z0-9]", "");
-            String name_stripped = name_ucase.replaceAll("[^A-Za-z0-9]", "");
+            // second test, stripped of all special chars
+
+            String cellValue_stripped = cellValue_ucase.replaceAll("[^A-Za-z0-9\\s]", "");
+            String name_stripped = name_ucase.replaceAll("[^A-Za-z0-9\\s]", "");
 
             if (cellValue_stripped.equals(name_stripped)) {
                 LOG.debug("Matched (stripped match) {} = {} ({} = {})", cellValue_stripped, name_stripped, cellValue, name);
@@ -77,6 +85,32 @@ public class XLSHelper {
             if (cellValue_stripped.contains(name_stripped) && cellValue_stripped.startsWith(name_stripped)) {
                 LOG.debug("Matched (stripped contained match) {} = {} ({} = {})", cellValue_stripped, name_stripped, cellValue, name);
                 return address;
+            }
+
+            String[] nameSplit = name_stripped.split(" ");
+            int splitLength = nameSplit.length;
+            int fullSplitMatchCount = 0;
+            for (int s = 0; s < splitLength; s++) {
+                String trimmed = nameSplit[s].trim();
+                if (!trimmed.isEmpty() && cellValue_stripped.contains(trimmed)) fullSplitMatchCount++;
+            }
+            if (splitLength == fullSplitMatchCount) {
+                LOG.debug("Matched {} (all) components in stripped string for a match {} = {} ({} = {})", splitLength, cellValue_stripped, name_stripped, cellValue, name);
+                return address;
+            }
+
+            // optimistic test, split into parts and look for 3 matches (potential mismatches)
+            if (useOptimisticSearch) {
+                int splitMatchCount = 0;
+                for (String s : nameSplit) {
+//                    LOG.debug("Checking if '{}' contains '{}'", cellValue_stripped, s);
+                    String trimmed = s.trim();
+                    if (!trimmed.isEmpty() && cellValue_stripped.contains(trimmed)) splitMatchCount++;
+                }
+                if (splitMatchCount == 3) {
+                    LOG.debug("Matched 3 components in stripped string for a match {} = {} ({} = {})", cellValue_stripped, name_stripped, cellValue, name);
+                    return address;
+                }
             }
         }
 

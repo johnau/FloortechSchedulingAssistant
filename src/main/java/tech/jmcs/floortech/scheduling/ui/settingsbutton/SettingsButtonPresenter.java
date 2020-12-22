@@ -34,8 +34,6 @@ public class SettingsButtonPresenter implements Initializable {
         Stage settingsStage = new Stage();
         if (this.settingsScene == null) {
             this.settingsScene = new Scene(this.settingsView.getView());
-        } else {
-            settingsStage.setScene(this.settingsScene);
         }
         settingsStage.setScene(settingsScene);
         settingsStage.initModality(Modality.APPLICATION_MODAL);

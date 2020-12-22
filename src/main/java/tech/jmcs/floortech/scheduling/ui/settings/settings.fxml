@@ -194,40 +194,136 @@
                                           <String fx:value="small-padded" />
                                        </styleClass>
                                     </HBox>
-                                    <TitledPane expanded="false" text="Truss Data Schedule Entries">
+                                    <TitledPane text="Truss Data Schedule Entries">
                                        <content>
                                           <VBox styleClass="small-padded">
                                              <children>
-                                                <HBox styleClass="row-container">
+                                                <Label styleClass="sub-header" text="CW260" />
+                                                <VBox>
                                                    <children>
-                                                      <Label styleClass="setting-label" text="CW260 Entry" />
-                                                      <TextField />
+                                                      <HBox styleClass="row-container">
+                                                         <children>
+                                                            <Label styleClass="setting-label" text="CW260 Entry" />
+                                                            <TextField />
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox styleClass="row-container">
+                                                         <children>
+                                                            <Label styleClass="setting-label" text="Standard Endcap CW260 Entry" />
+                                                            <TextField />
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox styleClass="row-container">
+                                                         <children>
+                                                            <Label styleClass="setting-label" text="Connection Endcap CW260 Entry" />
+                                                            <TextField />
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox styleClass="row-container">
+                                                         <children>
+                                                            <Label styleClass="setting-label" text="Air-Con Peno CW260 Entry" />
+                                                            <TextField />
+                                                         </children>
+                                                      </HBox>
                                                    </children>
-                                                </HBox>
-                                                <HBox styleClass="row-container">
+                                                   <styleClass>
+                                                      <String fx:value="inset" />
+                                                      <String fx:value="small-padded" />
+                                                   </styleClass>
+                                                </VBox>
+                                                <Label styleClass="sub-header" text="CW346" />
+                                                <VBox>
                                                    <children>
-                                                      <Label styleClass="setting-label" text="CW346 Entry" />
-                                                      <TextField />
+                                                      <HBox styleClass="row-container">
+                                                         <children>
+                                                            <Label styleClass="setting-label" text="CW346 Entry" />
+                                                            <TextField />
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox styleClass="row-container">
+                                                         <children>
+                                                            <Label styleClass="setting-label" text="Standard Endcap CW346 Entry" />
+                                                            <TextField />
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox styleClass="row-container">
+                                                         <children>
+                                                            <Label styleClass="setting-label" text="Connection Endcap CW346 Entry" />
+                                                            <TextField />
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox styleClass="row-container">
+                                                         <children>
+                                                            <Label styleClass="setting-label" text="Air-Con Peno CW346 Entry" />
+                                                            <TextField />
+                                                         </children>
+                                                      </HBox>
                                                    </children>
-                                                </HBox>
-                                                <HBox styleClass="row-container">
+                                                   <styleClass>
+                                                      <String fx:value="inset" />
+                                                      <String fx:value="small-padded" />
+                                                   </styleClass>
+                                                </VBox>
+                                                <Label styleClass="sub-header" text="HJ200" />
+                                                <VBox>
                                                    <children>
-                                                      <Label styleClass="setting-label" text="Standard Endcap Entry" />
-                                                      <TextField />
+                                                      <HBox styleClass="row-container">
+                                                         <children>
+                                                            <Label styleClass="setting-label" text="HJ200 Entry" />
+                                                            <TextField />
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox styleClass="row-container">
+                                                         <children>
+                                                            <Label styleClass="setting-label" text="Standard Endcap HJ200 Entry" />
+                                                            <TextField />
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox styleClass="row-container">
+                                                         <children>
+                                                            <Label styleClass="setting-label" text="Connection Endcap HJ200 Entry" />
+                                                            <TextField />
+                                                         </children>
+                                                      </HBox>
                                                    </children>
-                                                </HBox>
-                                                <HBox styleClass="row-container">
+                                                   <styleClass>
+                                                      <String fx:value="inset" />
+                                                      <String fx:value="small-padded" />
+                                                   </styleClass>
+                                                </VBox>
+                                                <Label styleClass="sub-header" text="HJ300" />
+                                                <VBox>
                                                    <children>
-                                                      <Label styleClass="setting-label" text="NEC Endcap Entry" />
-                                                      <TextField />
+                                                      <HBox styleClass="row-container">
+                                                         <children>
+                                                            <Label styleClass="setting-label" text="HJ300 Entry" />
+                                                            <TextField />
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox styleClass="row-container">
+                                                         <children>
+                                                            <Label styleClass="setting-label" text="Standard Endcap HJ300 Entry" />
+                                                            <TextField />
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox styleClass="row-container">
+                                                         <children>
+                                                            <Label styleClass="setting-label" text="Connection Endcap HJ300 Entry" />
+                                                            <TextField />
+                                                         </children>
+                                                      </HBox>
+                                                      <HBox styleClass="row-container">
+                                                         <children>
+                                                            <Label styleClass="setting-label" text="Air-Con Peno HJ300 Entry" textFill="#aaaaaa" />
+                                                            <TextField disable="true" />
+                                                         </children>
+                                                      </HBox>
                                                    </children>
-                                                </HBox>
-                                                <HBox styleClass="row-container">
-                                                   <children>
-                                                      <Label styleClass="setting-label" text="Air-Con Peno Entry" />
-                                                      <TextField />
-                                                   </children>
-                                                </HBox>
+                                                   <styleClass>
+                                                      <String fx:value="inset" />
+                                                      <String fx:value="small-padded" />
+                                                   </styleClass>
+                                                </VBox>
                                                 <HBox styleClass="row-container">
                                                    <children>
                                                       <Button mnemonicParsing="false" styleClass="text-button" text="Test" />
@@ -279,7 +375,7 @@
                                           <String fx:value="small-padded" />
                                        </styleClass>
                                     </HBox>
-                                    <TitledPane expanded="false" text="Beam Data Schedule Entries">
+                                    <TitledPane text="Beam Data Schedule Entries">
                                        <content>
                                           <VBox styleClass="small-padded">
                                              <children>

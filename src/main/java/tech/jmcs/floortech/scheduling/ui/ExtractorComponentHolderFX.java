@@ -1,6 +1,8 @@
 package tech.jmcs.floortech.scheduling.ui;
 
 import com.sun.xml.internal.ws.util.StringUtils;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -101,10 +103,14 @@ public class ExtractorComponentHolderFX {
         headerLabel.setText(type.getName() + " Extractor (Built-in)");
         headerLabel.getStyleClass().add("sub-header");
 
-        HBox hbox = new HBox();
-        hbox.setPrefHeight(HBox.USE_COMPUTED_SIZE);
-        hbox.setPrefWidth(HBox.USE_COMPUTED_SIZE);
-        hbox.getStyleClass().add("row-container");
+        VBox filePathsVbox = new VBox();
+        filePathsVbox.setPrefHeight(HBox.USE_COMPUTED_SIZE);
+        filePathsVbox.setPrefWidth(HBox.USE_COMPUTED_SIZE);
+
+        HBox filePathHbox = new HBox();
+        filePathHbox.setPrefHeight(HBox.USE_COMPUTED_SIZE);
+        filePathHbox.setPrefWidth(HBox.USE_COMPUTED_SIZE);
+        filePathHbox.getStyleClass().add("row-container");
 
         Label fieldLabel = new Label();
         fieldLabel.setText("File path: ");
@@ -114,8 +120,7 @@ public class ExtractorComponentHolderFX {
         pathField.setPromptText("eg. C:\\..\\jobs\\19000\\" + FileType.fileTypesMap.get(type.getFileType()));
         pathField.getStyleClass().add("field");
 
-        Button browseButton = new Button();
-        browseButton.setText("Browse...");
+        Button browseButton = new Button("Browse...");
         browseButton.setOnAction(event -> {
             FileChooser fileChooser = new FileChooser();
             if (lastPathChosen == null) {
@@ -143,12 +148,26 @@ public class ExtractorComponentHolderFX {
             }
         });
 
-        hbox.getChildren().addAll(fieldLabel, pathField, browseButton);
+        Button clearButton = new Button("x");
+        clearButton.setOnAction(event -> pathField.clear());
 
+        filePathHbox.getChildren().addAll(fieldLabel, pathField, browseButton);
+
+        filePathsVbox.getChildren().addAll(filePathHbox);
+
+        HBox addFileButtonHbox = new HBox();
+        addFileButtonHbox.setPrefHeight(HBox.USE_COMPUTED_SIZE);
+        addFileButtonHbox.setPrefWidth(HBox.USE_COMPUTED_SIZE);
+        addFileButtonHbox.getStyleClass().add("row-container");
+        
+        Button addFileButton = new Button("Add another file +");
+        
+        addFileButtonHbox.getChildren().add(addFileButton);
+        
         Separator separator = new Separator();
         separator.setOrientation(Orientation.HORIZONTAL);
 
-        vbox.getChildren().addAll(headerLabel, hbox, separator);
+        vbox.getChildren().addAll(headerLabel, filePathsVbox, addFileButtonHbox, separator);
 
         extractorDescriptor.setName(type.getName());
         extractorDescriptor.setType(type);

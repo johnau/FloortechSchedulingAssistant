@@ -40,6 +40,37 @@ public class SettingsHolder {
     private Boolean builtInSlabExtractorEnabled;
     private String slabScheduleSectionName;
 
+    private String scheduleEntryCw260Truss;
+    private String scheduleEntryCw346Truss;
+    private String scheduleEntryHj200Truss;
+    private String scheduleEntryHj300Truss;
+    private String scheduleEntryStandardEndcapsCw260;
+    private String scheduleEntryStandardEndcapsCw346;
+    private String scheduleEntryStandardEndcapsHj200;
+    private String scheduleEntryStandardEndcapsHj300;
+    private String scheduleEntryConnectionEndcapsCw260;
+    private String scheduleEntryConnectionEndcapsCw346;
+    private String scheduleEntryConnectionEndcapsHj200;
+    private String scheduleEntryConnectionEndcapsHj300;
+    private String scheduleEntryTrussAirConPenoCw260;
+    private String scheduleEntryTrussAirConPenoCw346;
+    private String scheduleEntryTrussAirConPenoHj300;
+
+    private String scheduleEntrySteelBlackKeyword;
+    private String scheduleEntrySteelGalvanisedKeyword;
+    private String scheduleEntrySteelDimetKeyword;
+    private String scheduleEntrySteelEpoxyKeyword;
+    private String scheduleEntrySteelDuragalKeyword;
+
+    private String scheduleEntrySlabInternal;
+    private String scheduleEntrySlab2cRhs;
+    private String scheduleEntrySlab3cRhs;
+    private String scheduleEntrySlab2cInsitu;
+    private String scheduleEntrySlab3cInsitu;
+    private String scheduleEntrySlab4cInsitu;
+    private String scheduleEntrySlabThickAngle;
+    private String scheduleEntrySlabThinAngle;
+
     private List<String> dataSourceFileNamesMap;
 
     /**
@@ -328,5 +359,313 @@ public class SettingsHolder {
         } else {
             this.excelScheduleFileSections = new ArrayList();
         }
+    }
+
+    public String getScheduleEntryCw260Truss() {
+        return scheduleEntryCw260Truss;
+    }
+
+    public void setScheduleEntryCw260Truss(String scheduleEntryCw260Truss) {
+        if (scheduleEntryCw260Truss == null) {
+            return;
+        }
+        this.scheduleEntryCw260Truss = scheduleEntryCw260Truss;
+    }
+
+    public String getScheduleEntryCw346Truss() {
+        return scheduleEntryCw346Truss;
+    }
+
+    public void setScheduleEntryCw346Truss(String scheduleEntryCw346Truss) {
+        if (scheduleEntryCw346Truss == null) {
+            return;
+        }
+        this.scheduleEntryCw346Truss = scheduleEntryCw346Truss;
+    }
+
+    public String getScheduleEntryHj200Truss() {
+        return scheduleEntryHj200Truss;
+    }
+
+    public void setScheduleEntryHj200Truss(String scheduleEntryHj200Truss) {
+        if (scheduleEntryHj200Truss == null) {
+            return;
+        }
+        this.scheduleEntryHj200Truss = scheduleEntryHj200Truss;
+    }
+
+    public String getScheduleEntryHj300Truss() {
+        return scheduleEntryHj300Truss;
+    }
+
+    public void setScheduleEntryHj300Truss(String scheduleEntryHj300Truss) {
+        if (scheduleEntryHj300Truss == null) {
+            return;
+        }
+        this.scheduleEntryHj300Truss = scheduleEntryHj300Truss;
+    }
+
+    public String getScheduleEntryStandardEndcapsCw260() {
+        return scheduleEntryStandardEndcapsCw260;
+    }
+
+    public void setScheduleEntryStandardEndcapsCw260(String scheduleEntryStandardEndcapsCw260) {
+        if (scheduleEntryStandardEndcapsCw260 == null) {
+            return;
+        }
+        this.scheduleEntryStandardEndcapsCw260 = scheduleEntryStandardEndcapsCw260;
+    }
+
+    public String getScheduleEntryStandardEndcapsCw346() {
+        return scheduleEntryStandardEndcapsCw346;
+    }
+
+    public void setScheduleEntryStandardEndcapsCw346(String scheduleEntryStandardEndcapsCw346) {
+        if (scheduleEntryStandardEndcapsCw346 == null) {
+            return;
+        }
+        this.scheduleEntryStandardEndcapsCw346 = scheduleEntryStandardEndcapsCw346;
+    }
+
+    public String getScheduleEntryStandardEndcapsHj200() {
+        return scheduleEntryStandardEndcapsHj200;
+    }
+
+    public void setScheduleEntryStandardEndcapsHj200(String scheduleEntryStandardEndcapsHj200) {
+        if (scheduleEntryStandardEndcapsHj200 == null) {
+            return;
+        }
+        this.scheduleEntryStandardEndcapsHj200 = scheduleEntryStandardEndcapsHj200;
+    }
+
+    public String getScheduleEntryStandardEndcapsHj300() {
+        return scheduleEntryStandardEndcapsHj300;
+    }
+
+    public void setScheduleEntryStandardEndcapsHj300(String scheduleEntryStandardEndcapsHj300) {
+        if (scheduleEntryStandardEndcapsHj300 == null) {
+            return;
+        }
+        this.scheduleEntryStandardEndcapsHj300 = scheduleEntryStandardEndcapsHj300;
+    }
+
+    public String getScheduleEntryConnectionEndcapsCw260() {
+        return scheduleEntryConnectionEndcapsCw260;
+    }
+
+    public void setScheduleEntryConnectionEndcapsCw260(String scheduleEntryConnectionEndcapsCw260) {
+        if (scheduleEntryConnectionEndcapsCw260 == null) {
+            return;
+        }
+        this.scheduleEntryConnectionEndcapsCw260 = scheduleEntryConnectionEndcapsCw260;
+    }
+
+    public String getScheduleEntryConnectionEndcapsCw346() {
+        return scheduleEntryConnectionEndcapsCw346;
+    }
+
+    public void setScheduleEntryConnectionEndcapsCw346(String scheduleEntryConnectionEndcapsCw346) {
+        if (scheduleEntryConnectionEndcapsCw346 == null) {
+            return;
+        }
+        this.scheduleEntryConnectionEndcapsCw346 = scheduleEntryConnectionEndcapsCw346;
+    }
+
+    public String getScheduleEntryConnectionEndcapsHj200() {
+        return scheduleEntryConnectionEndcapsHj200;
+    }
+
+    public void setScheduleEntryConnectionEndcapsHj200(String scheduleEntryConnectionEndcapsHj200) {
+        if (scheduleEntryConnectionEndcapsHj200 == null) {
+            return;
+        }
+        this.scheduleEntryConnectionEndcapsHj200 = scheduleEntryConnectionEndcapsHj200;
+    }
+
+    public String getScheduleEntryConnectionEndcapsHj300() {
+        return scheduleEntryConnectionEndcapsHj300;
+    }
+
+    public void setScheduleEntryConnectionEndcapsHj300(String scheduleEntryConnectionEndcapsHj300) {
+        if (scheduleEntryConnectionEndcapsHj300 == null) {
+            return;
+        }
+        this.scheduleEntryConnectionEndcapsHj300 = scheduleEntryConnectionEndcapsHj300;
+    }
+
+    public String getScheduleEntryTrussAirConPenoCw260() {
+        return scheduleEntryTrussAirConPenoCw260;
+    }
+
+    public void setScheduleEntryTrussAirConPenoCw260(String scheduleEntryTrussAirConPenoCw260) {
+        if (scheduleEntryTrussAirConPenoCw260 == null) {
+            return;
+        }
+        this.scheduleEntryTrussAirConPenoCw260 = scheduleEntryTrussAirConPenoCw260;
+    }
+
+    public String getScheduleEntryTrussAirConPenoCw346() {
+        return scheduleEntryTrussAirConPenoCw346;
+    }
+
+    public void setScheduleEntryTrussAirConPenoCw346(String scheduleEntryTrussAirConPenoCw346) {
+        if (scheduleEntryTrussAirConPenoCw346 == null) {
+            return;
+        }
+        this.scheduleEntryTrussAirConPenoCw346 = scheduleEntryTrussAirConPenoCw346;
+    }
+
+    public String getScheduleEntryTrussAirConPenoHj300() {
+        return scheduleEntryTrussAirConPenoHj300;
+    }
+
+    public void setScheduleEntryTrussAirConPenoHj300(String scheduleEntryTrussAirConPenoHj300) {
+        if (scheduleEntryTrussAirConPenoHj300 == null) {
+            return;
+        }
+        this.scheduleEntryTrussAirConPenoHj300 = scheduleEntryTrussAirConPenoHj300;
+    }
+
+    public String getScheduleEntrySteelBlackKeyword() {
+        return scheduleEntrySteelBlackKeyword;
+    }
+
+    public void setScheduleEntrySteelBlackKeyword(String scheduleEntrySteelBlackKeyword) {
+        if (scheduleEntrySteelBlackKeyword == null) {
+            return;
+        }
+        this.scheduleEntrySteelBlackKeyword = scheduleEntrySteelBlackKeyword;
+    }
+
+    public String getScheduleEntrySteelGalvanisedKeyword() {
+        return scheduleEntrySteelGalvanisedKeyword;
+    }
+
+    public void setScheduleEntrySteelGalvanisedKeyword(String scheduleEntrySteelGalvanisedKeyword) {
+        if (scheduleEntrySteelGalvanisedKeyword == null) {
+            return;
+        }
+        this.scheduleEntrySteelGalvanisedKeyword = scheduleEntrySteelGalvanisedKeyword;
+    }
+
+    public String getScheduleEntrySteelDimetKeyword() {
+        return scheduleEntrySteelDimetKeyword;
+    }
+
+    public void setScheduleEntrySteelDimetKeyword(String scheduleEntrySteelDimetKeyword) {
+        if (scheduleEntrySteelDimetKeyword == null) {
+            return;
+        }
+        this.scheduleEntrySteelDimetKeyword = scheduleEntrySteelDimetKeyword;
+    }
+
+    public String getScheduleEntrySteelEpoxyKeyword() {
+        return scheduleEntrySteelEpoxyKeyword;
+    }
+
+    public void setScheduleEntrySteelEpoxyKeyword(String scheduleEntrySteelEpoxyKeyword) {
+        if (scheduleEntrySteelEpoxyKeyword == null) {
+            return;
+        }
+        this.scheduleEntrySteelEpoxyKeyword = scheduleEntrySteelEpoxyKeyword;
+    }
+
+    public String getScheduleEntrySteelDuragalKeyword() {
+        return scheduleEntrySteelDuragalKeyword;
+    }
+
+    public void setScheduleEntrySteelDuragalKeyword(String scheduleEntrySteelDuragalKeyword) {
+        if (scheduleEntrySteelDuragalKeyword == null) {
+            return;
+        }
+        this.scheduleEntrySteelDuragalKeyword = scheduleEntrySteelDuragalKeyword;
+    }
+
+    public String getScheduleEntrySlabInternal() {
+        return scheduleEntrySlabInternal;
+    }
+
+    public void setScheduleEntrySlabInternal(String scheduleEntrySlabInternal) {
+        if (scheduleEntrySlabInternal == null) {
+            return;
+        }
+        this.scheduleEntrySlabInternal = scheduleEntrySlabInternal;
+    }
+
+    public String getScheduleEntrySlab2cRhs() {
+        return scheduleEntrySlab2cRhs;
+    }
+
+    public void setScheduleEntrySlab2cRhs(String scheduleEntrySlab2cRhs) {
+        if (scheduleEntrySlab2cRhs == null) {
+            return;
+        }
+        this.scheduleEntrySlab2cRhs = scheduleEntrySlab2cRhs;
+    }
+
+    public String getScheduleEntrySlab3cRhs() {
+        return scheduleEntrySlab3cRhs;
+    }
+
+    public void setScheduleEntrySlab3cRhs(String scheduleEntrySlab3cRhs) {
+        if (scheduleEntrySlab3cRhs == null) {
+            return;
+        }
+        this.scheduleEntrySlab3cRhs = scheduleEntrySlab3cRhs;
+    }
+
+    public String getScheduleEntrySlab2cInsitu() {
+        return scheduleEntrySlab2cInsitu;
+    }
+
+    public void setScheduleEntrySlab2cInsitu(String scheduleEntrySlab2cInsitu) {
+        if (scheduleEntrySlab2cInsitu == null) {
+            return;
+        }
+        this.scheduleEntrySlab2cInsitu = scheduleEntrySlab2cInsitu;
+    }
+
+    public String getScheduleEntrySlab3cInsitu() {
+        return scheduleEntrySlab3cInsitu;
+    }
+
+    public void setScheduleEntrySlab3cInsitu(String scheduleEntrySlab3cInsitu) {
+        if (scheduleEntrySlab3cInsitu == null) {
+            return;
+        }
+        this.scheduleEntrySlab3cInsitu = scheduleEntrySlab3cInsitu;
+    }
+
+    public String getScheduleEntrySlab4cInsitu() {
+        return scheduleEntrySlab4cInsitu;
+    }
+
+    public void setScheduleEntrySlab4cInsitu(String scheduleEntrySlab4cInsitu) {
+        if (scheduleEntrySlab4cInsitu == null) {
+            return;
+        }
+        this.scheduleEntrySlab4cInsitu = scheduleEntrySlab4cInsitu;
+    }
+
+    public String getScheduleEntrySlabThickAngle() {
+        return scheduleEntrySlabThickAngle;
+    }
+
+    public void setScheduleEntrySlabThickAngle(String scheduleEntrySlabThickAngle) {
+        if (scheduleEntrySlabThickAngle == null) {
+            return;
+        }
+        this.scheduleEntrySlabThickAngle = scheduleEntrySlabThickAngle;
+    }
+
+    public String getScheduleEntrySlabThinAngle() {
+        return scheduleEntrySlabThinAngle;
+    }
+
+    public void setScheduleEntrySlabThinAngle(String scheduleEntrySlabThinAngle) {
+        if (scheduleEntrySlabThinAngle == null) {
+            return;
+        }
+        this.scheduleEntrySlabThinAngle = scheduleEntrySlabThinAngle;
     }
 }

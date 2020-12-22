@@ -6,16 +6,24 @@ import tech.jmcs.floortech.scheduling.app.util.XLSHelper;
 import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class XlsTest {
 
+    private String getResourcePath() {
+        Path resourceDirectory = Paths.get("src","test","resources");
+        String absolutePath = resourceDirectory.toFile().getAbsolutePath();
+        return absolutePath;
+    }
+
     @Test
     void testXlsRead() {
-        Path excelFile = Paths.get("D:\\appdev\\floortech_env\\test_data\\SHEET LISTING.xls");
+        Path excelFile = Paths.get(getResourcePath(), "SHEET LISTING.xls");
         File f = excelFile.toFile();
         if (!f.exists()) {
             System.out.println("Could not find file");

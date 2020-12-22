@@ -111,6 +111,7 @@ public class ExcelScheduleUpdaterImpl extends ExcelScheduleUpdater {
         try {
             if (this.targetSheet == null) this.targetSheet = this.xls.getSheet(targetSheetNumber, true);
             values.forEach( (name, value) -> {
+                LOG.debug("Adding to schedule: {} = {}", name, value);
                 String result = updateCellWithValue(name, value, this.targetSheet, dataFormatter);
                 switch (result) {
                     case OK: //ok
@@ -216,7 +217,13 @@ public class ExcelScheduleUpdaterImpl extends ExcelScheduleUpdater {
      */
     protected String updateCellWithValue(String name, Object value, Sheet schSheet, DataFormatter dataFormatter) {
         // find target address
-        ExcelCellAddress itemNameAddress = XLSHelper.findCellByName(schSheet, DATA_NAME_COLUMN, name, dataFormatter);
+        ExcelCellAddress itemNameAddress;
+        if (name.toUpperCase().contains("T-BAR")) {
+            itemNameAddress = XLSHelper.findCellByName(schSheet, DATA_NAME_COLUMN, name, dataFormatter, true);
+        } else {
+            itemNameAddress = XLSHelper.findCellByName(schSheet, DATA_NAME_COLUMN, name, dataFormatter);
+        }
+
         if (itemNameAddress == null) {
             LOG.debug("Could not find a place for [{} : {}]", name, value);
             return NAME_NOT_FOUND;

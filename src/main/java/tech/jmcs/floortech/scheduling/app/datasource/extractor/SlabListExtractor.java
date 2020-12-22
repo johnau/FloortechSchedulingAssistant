@@ -31,6 +31,15 @@ public class SlabListExtractor extends PdfTextDataSourceExtractor<SlabData> {
     public static final Pattern THICK_ANGLE_PATTERN = Pattern.compile(String.format("THICK ANGLE[\\s]*=[\\s]*(%s)%s", NUMBER_PATTERN_COMPONENT, M_LINR_PATTERN_COMPONENT));
     public static final Pattern THIN_ANGLE_PATTERN = Pattern.compile(String.format("THIN ANGLE[\\s]*=[\\s]*(%s)%s", NUMBER_PATTERN_COMPONENT, M_LINR_PATTERN_COMPONENT));
 
+    public static final String BALC_2C_INSITU = "Balcony Slab - 2c Insitu";
+    public static final String BALC_3C_INSITU = "Balcony Slab - 3c Insitu";
+    public static final String BALC_4C_INSITU = "Balcony Slab - 4c Insitu";
+    public static final String BALC_2C_RHS = "Balcony Slab - 2c RHS";
+    public static final String BALC_3C_RHS = "Balcony Slab - 3c RHS";
+    public static final String INT_FLOOR = "Internal FLoor Slab";
+    public static final String THICK_ANGLE = "Thick Edging Angle";
+    public static final String THIN_ANGLE = "Thin Edging Angle";
+
     protected SlabListExtractor(Path pdfPath) throws IOException {
         super(pdfPath);
     }
@@ -104,42 +113,42 @@ public class SlabListExtractor extends PdfTextDataSourceExtractor<SlabData> {
         Double thinAngleLength = processSingularDoubleValues(thinAngleMatcher);
 
         SlabData balc2cInsitu = new SlabData();
-        balc2cInsitu.setName("Balcony Slab - 2c Insitu");
+        balc2cInsitu.setName(BALC_2C_INSITU);
         balc2cInsitu.setSize(insitu2c);
         balc2cInsitu.setMeasurementUnit(MeasurementUnit.M2);
 
         SlabData balc3cInsitu = new SlabData();
-        balc3cInsitu.setName("Balcony Slab - 3c Insitu");
+        balc3cInsitu.setName(BALC_3C_INSITU);
         balc3cInsitu.setSize(insitu3c);
         balc3cInsitu.setMeasurementUnit(MeasurementUnit.M2);
 
         SlabData balc4cInsitu = new SlabData();
-        balc4cInsitu.setName("Balcony Slab - 4c Insitu");
+        balc4cInsitu.setName(BALC_4C_INSITU);
         balc4cInsitu.setSize(insitu4c);
         balc4cInsitu.setMeasurementUnit(MeasurementUnit.M2);
 
         SlabData balc2cRhs = new SlabData();
-        balc2cRhs.setName("Balcony Slab - 2c RHS");
+        balc2cRhs.setName(BALC_2C_RHS);
         balc2cRhs.setSize(rhs2c);
         balc2cRhs.setMeasurementUnit(MeasurementUnit.M2);
 
         SlabData balc3cRhs = new SlabData();
-        balc3cRhs.setName("Balcony Slab - 3c RHS");
+        balc3cRhs.setName(BALC_3C_RHS);
         balc3cRhs.setSize(rhs3c);
         balc3cRhs.setMeasurementUnit(MeasurementUnit.M2);
 
         SlabData intFloor = new SlabData();
-        intFloor.setName("Internal FLoor Slab");
+        intFloor.setName(INT_FLOOR);
         intFloor.setSize(floorArea);
         intFloor.setMeasurementUnit(MeasurementUnit.M2);
 
         SlabData thickAngle = new SlabData();
-        thickAngle.setName("Thick Edging Angle");
+        thickAngle.setName(THICK_ANGLE);
         thickAngle.setSize(thickAngleLength);
         thickAngle.setMeasurementUnit(MeasurementUnit.LM);
 
         SlabData thinAngle = new SlabData();
-        thinAngle.setName("Thin Edging Angle");
+        thinAngle.setName(THIN_ANGLE);
         thinAngle.setSize(thinAngleLength);
         thinAngle.setMeasurementUnit(MeasurementUnit.LM);
 

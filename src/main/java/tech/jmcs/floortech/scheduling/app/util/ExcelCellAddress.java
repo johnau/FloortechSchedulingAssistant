@@ -13,6 +13,11 @@ public class ExcelCellAddress implements Serializable {
         this.row = row;
     }
 
+    public static final ExcelCellAddress EMPTY = new ExcelCellAddress();
+
+    protected ExcelCellAddress() {
+    }
+
     public Integer getCol() {
         return col;
     }

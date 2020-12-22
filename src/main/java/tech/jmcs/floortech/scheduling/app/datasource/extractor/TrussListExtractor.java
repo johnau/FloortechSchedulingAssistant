@@ -5,7 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tech.jmcs.floortech.scheduling.app.datasource.model.TrussData;
 import tech.jmcs.floortech.scheduling.app.types.DataSourceExtractorType;
-import tech.jmcs.floortech.scheduling.app.types.EndCapCW260;
+import tech.jmcs.floortech.scheduling.app.types.EndCapType;
 import tech.jmcs.floortech.scheduling.app.exception.DataExtractorException;
 import tech.jmcs.floortech.scheduling.app.datasource.model.ExtractedTableData;
 import tech.jmcs.floortech.scheduling.app.util.XLSHelper;
@@ -346,8 +346,11 @@ public class TrussListExtractor extends ExcelDataSourceExtractor<TrussData> {
         }
 
         Boolean hasPeno = false;
-        if (j != null && j.getCellType().equals(CellType.BOOLEAN)) {
-            hasPeno = c.getBooleanCellValue();
+        if (j != null && j.getCellType().equals(CellType.STRING)) {
+            String strVal = j.getStringCellValue();
+            if (strVal.toUpperCase().equals("X")) {
+                hasPeno = true;
+            }
         }
 
         /**
@@ -367,8 +370,8 @@ public class TrussListExtractor extends ExcelDataSourceExtractor<TrussData> {
             }
         }
 
-        EndCapCW260 leftEndcap = EndCapCW260.fromName(leftEc);
-        EndCapCW260 rightEndcap = EndCapCW260.fromName(rightEc);
+        EndCapType leftEndcap = EndCapType.fromName(leftEc);
+        EndCapType rightEndcap = EndCapType.fromName(rightEc);
 
         /**
          * Set Data to Truss Data Object

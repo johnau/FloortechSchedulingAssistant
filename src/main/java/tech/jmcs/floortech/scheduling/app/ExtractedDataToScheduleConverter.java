@@ -5,6 +5,7 @@ import tech.jmcs.floortech.scheduling.app.datasource.converter.SheetsDataConvert
 import tech.jmcs.floortech.scheduling.app.datasource.converter.SlabDataConverter;
 import tech.jmcs.floortech.scheduling.app.datasource.converter.TrussDataConverter;
 import tech.jmcs.floortech.scheduling.app.datasource.model.*;
+import tech.jmcs.floortech.scheduling.app.settings.SettingsHolder;
 
 import java.util.Map;
 
@@ -18,24 +19,25 @@ public class ExtractedDataToScheduleConverter {
      * Converts ExtractedData object to Map
      * @return Map of Values stored by schedule entry name
      */
-    public Map<String, Object> convertBeamDataForSchedule(ExtractedTableData<BeamData> data) {
-        BeamDataConverter converter = new BeamDataConverter();
+    public Map<String, Object> convertBeamDataForSchedule(Map<Long, BeamData> data, SettingsHolder settingsHolder) {
+        BeamDataConverter converter = new BeamDataConverter(settingsHolder);
         return converter.convert(data);
     }
 
-    public Map<String, Object> convertTrussDataForSchedule(ExtractedTableData<TrussData> data) {
-        TrussDataConverter converter = new TrussDataConverter();
+    public Map<String, Object> convertTrussDataForSchedule(Map<Long, TrussData> data, SettingsHolder settingsHolder) {
+        TrussDataConverter converter = new TrussDataConverter(settingsHolder);
         return converter.convert(data);
     }
 
-    public Map<String, Object> convertSlabDataForSchedule(ExtractedTableData<SlabData> data) {
-        SlabDataConverter converter = new SlabDataConverter();
+    public Map<String, Object> convertSlabDataForSchedule(Map<Long, SlabData> data, SettingsHolder settingsHolder) {
+        SlabDataConverter converter = new SlabDataConverter(settingsHolder);
         return converter.convert(data);
     }
 
-    public Map<String, Object> convertSheetDataForSchedule(ExtractedTableData<SheetData> data) {
-        SheetsDataConverter converter = new SheetsDataConverter();
+    public Map<String, Object> convertSheetDataForSchedule(Map<Long, SheetData> data, SettingsHolder settingsHolder) {
+        SheetsDataConverter converter = new SheetsDataConverter(settingsHolder);
         return converter.convert(data);
     }
+
 
 }

@@ -3,7 +3,7 @@ package tech.jmcs.floortech.scheduling.ui.dataframe.table;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import tech.jmcs.floortech.scheduling.app.types.EndCapCW260;
+import tech.jmcs.floortech.scheduling.app.types.EndCapType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,9 +17,9 @@ public class TrussDataObservable {
 
     private StringProperty type = new SimpleStringProperty("", "type");
 
-    private ObjectProperty<EndCapCW260> leftEndcap = new SimpleObjectProperty<>(EndCapCW260.STANDARD, "leftEndcap");
+    private ObjectProperty<EndCapType> leftEndcap = new SimpleObjectProperty<>(EndCapType.STANDARD, "leftEndcap");
 
-    private ObjectProperty<EndCapCW260> rightEndcap = new SimpleObjectProperty<>(EndCapCW260.STANDARD, "rightEndcap");
+    private ObjectProperty<EndCapType> rightEndcap = new SimpleObjectProperty<>(EndCapType.STANDARD, "rightEndcap");
 
     private BooleanProperty airConPeno = new SimpleBooleanProperty(false, "airConPeno");
 
@@ -78,27 +78,27 @@ public class TrussDataObservable {
         this.type.set(type);
     }
 
-    public EndCapCW260 getLeftEndcap() {
+    public EndCapType getLeftEndcap() {
         return leftEndcap.get();
     }
 
-    public ObjectProperty<EndCapCW260> leftEndcapProperty() {
+    public ObjectProperty<EndCapType> leftEndcapProperty() {
         return leftEndcap;
     }
 
-    public void setLeftEndcap(EndCapCW260 leftEndcap) {
+    public void setLeftEndcap(EndCapType leftEndcap) {
         this.leftEndcap.set(leftEndcap);
     }
 
-    public EndCapCW260 getRightEndcap() {
+    public EndCapType getRightEndcap() {
         return rightEndcap.get();
     }
 
-    public ObjectProperty<EndCapCW260> rightEndcapProperty() {
+    public ObjectProperty<EndCapType> rightEndcapProperty() {
         return rightEndcap;
     }
 
-    public void setRightEndcap(EndCapCW260 rightEndcap) {
+    public void setRightEndcap(EndCapType rightEndcap) {
         this.rightEndcap.set(rightEndcap);
     }
 

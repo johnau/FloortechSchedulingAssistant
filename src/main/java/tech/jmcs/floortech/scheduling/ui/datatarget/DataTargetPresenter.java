@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import tech.jmcs.floortech.scheduling.app.settings.SettingsHolder;
 import tech.jmcs.floortech.scheduling.app.types.FileType;
 import tech.jmcs.floortech.scheduling.app.util.PathUtilities;
+import tech.jmcs.floortech.scheduling.ui.DataTargetHolder;
 
 import javax.inject.Inject;
 import java.io.File;
@@ -21,6 +22,7 @@ public class DataTargetPresenter implements Initializable {
     protected static final Logger LOG = LoggerFactory.getLogger(DataTargetPresenter.class);
 
     @Inject private SettingsHolder settingsHolder;
+    @Inject private DataTargetHolder targetHolder;
 
     @FXML private TextField schedulingFilePathTextField;
 
@@ -29,6 +31,7 @@ public class DataTargetPresenter implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         LOG.info("DataTargetPresenter initializing...");
+        setupBindingToDataTargetHolder();
     }
 
     @FXML
@@ -57,5 +60,14 @@ public class DataTargetPresenter implements Initializable {
             this.schedulingFilePathTextField.setText(fileChosen.getPath());
             this.lastJobSchedulingFileChooserPath = fileChosen.toPath();
         }
+    }
+
+    private void setupBindingToDataTargetHolder() {
+
+        this.schedulingFilePathTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            // TODO: Check the path is ok, validate etc.
+
+            this.targetHolder.setDataTargetPath(newValue);
+        });
     }
 }

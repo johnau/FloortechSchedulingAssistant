@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tech.jmcs.floortech.scheduling.app.datasource.model.BeamData;
 import tech.jmcs.floortech.scheduling.app.datasource.model.ExtractedTableData;
+import tech.jmcs.floortech.scheduling.app.settings.SettingsHolder;
 import tech.jmcs.floortech.scheduling.app.types.BeamTreatment;
 import tech.jmcs.floortech.scheduling.app.types.DataSourceExtractorType;
 
@@ -16,7 +17,10 @@ import java.util.Map;
 public class BeamDataConverter extends DataFormatConverter<BeamData> {
     private static final Logger LOG = LoggerFactory.getLogger(BeamDataConverter.class);
 
-    public BeamDataConverter() {
+    private final SettingsHolder settingsHolder;
+
+    public BeamDataConverter(SettingsHolder settingsHolder) {
+        this.settingsHolder = settingsHolder;
     }
 
     /**
@@ -25,20 +29,19 @@ public class BeamDataConverter extends DataFormatConverter<BeamData> {
      *
      * This method must take into account the Beam Treatment property, which may be changed by the user.
      *
-     * @param d
+     * @param data
      * @return
      */
     @Override
-    public Map<String, Object> convert(ExtractedTableData<BeamData> d) {
-        String tableDataName = d.getName();
-        if (!tableDataName.toUpperCase().equals(DataSourceExtractorType.BEAM.getName())) {
-            // log warn
-            LOG.warn("Expected table name : BEAM LISTING but got: {}", tableDataName);
-        }
+    public Map<String, Object> convert(Map<Long, BeamData> dataMap) {
+//        String tableDataName = data.getName();
+//        if (!tableDataName.toUpperCase().equals(DataSourceExtractorType.BEAM.getName())) {
+//            // log warn
+//            LOG.warn("Expected table name : BEAM LISTING but got: {}", tableDataName);
+//        }
 
         Map<String, Object> valuesMap = new HashMap<>();
 
-        Map<Long, BeamData> dataMap = d.getData();
         // add up beam lengths by Beam Type and Beam Finish
         dataMap.forEach( (id, bd) -> {
 
@@ -62,9 +65,8 @@ public class BeamDataConverter extends DataFormatConverter<BeamData> {
                         double newTotal = lVal + bTotal_m;
                         LOG.debug("Increased total of {} from: {} to: {} (+{}m)", schedulingNameString, lVal, newTotal, bTotal_m);
                         return newTotal;
-                    } else {
-                        LOG.debug("This Beam Data ({}) value {} was not type Long as expected. Actual type: {}", schedulingNameString, val, val.getClass().getName());
                     }
+                    LOG.debug("This Beam Data ({}) value {} was not type Long as expected. Actual type: {}", schedulingNameString, val, val.getClass().getName());
                     return val;
                 });
             } else {

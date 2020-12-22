@@ -8,7 +8,7 @@ import java.util.Map;
 public class GenericDataConverter extends DataFormatConverter<Map<String, Object>> {
 
     @Override
-    public Map<String, Object> convert(ExtractedTableData<Map<String, Object>> d) {
+    public Map<String, Object> convert(Map<Long, Map<String, Object>> data) {
         return null;
     }
 

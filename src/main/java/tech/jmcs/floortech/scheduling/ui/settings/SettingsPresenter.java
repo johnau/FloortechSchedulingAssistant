@@ -151,20 +151,7 @@ public class SettingsPresenter implements Initializable {
 
     @FXML
     public void handleSaveSettingsAndCloseButtonAction(ActionEvent event) {
-        this.settingsHolder.setAllSettings(
-                Paths.get(this.schedulingFolderRootTextfield.getText()),
-                Paths.get(this.detailingFoldersRootTextfield.getText()),
-                this.beamExtractorEnabledCheckbox.isSelected(),
-                this.beamScheduleSectionChoiceBox.getSelectionModel().getSelectedItem(),
-                this.sheetExtractorEnabledCheckbox.isSelected(),
-                this.sheetScheduleSectionChoiceBox.getSelectionModel().getSelectedItem(),
-                this.slabExtractorEnabledCheckbox.isSelected(),
-                this.slabScheduleSectionChoiceBox.getSelectionModel().getSelectedItem(),
-                this.trussExtractorEnabledCheckbox.isSelected(),
-                this.trussScheduleSectionChoiceBox.getSelectionModel().getSelectedItem(),
-                this.excelScheduleSheetNameTextField.getText(),
-                this.scheduleSectionsList.getItems() // ok to pass the observable list?...
-        );
+        saveSettingsToMemory();
 
         try {
             this.settingsWriter.writeSettingsFile();
@@ -209,6 +196,23 @@ public class SettingsPresenter implements Initializable {
             return entry;
         }
         return null;
+    }
+
+    private void saveSettingsToMemory() {
+        this.settingsHolder.setAllSettings(
+                Paths.get(this.schedulingFolderRootTextfield.getText()),
+                Paths.get(this.detailingFoldersRootTextfield.getText()),
+                this.beamExtractorEnabledCheckbox.isSelected(),
+                this.beamScheduleSectionChoiceBox.getSelectionModel().getSelectedItem(),
+                this.sheetExtractorEnabledCheckbox.isSelected(),
+                this.sheetScheduleSectionChoiceBox.getSelectionModel().getSelectedItem(),
+                this.slabExtractorEnabledCheckbox.isSelected(),
+                this.slabScheduleSectionChoiceBox.getSelectionModel().getSelectedItem(),
+                this.trussExtractorEnabledCheckbox.isSelected(),
+                this.trussScheduleSectionChoiceBox.getSelectionModel().getSelectedItem(),
+                this.excelScheduleSheetNameTextField.getText(),
+                this.scheduleSectionsList.getItems() // ok to pass the observable list?...
+        );
     }
 
     private void updateSettingsFromMemory() {

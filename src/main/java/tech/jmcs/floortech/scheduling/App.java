@@ -11,6 +11,23 @@ import tech.jmcs.floortech.scheduling.ui.dashboard.DashboardView;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Floortech Scheduling Assistant App / Floortech Data Scraper App
+ * Extracts data from data sources produced during detailing process and updates an Excel scheduling file with data.
+ *
+ * Using Maven for Dependency Management and Build
+ * Using Logback Classic for Loggin
+ * Using Junit5 for Testing
+ * Using AfterburnerFX for Framework Free CDI
+ * Using JavaFX for UI
+ * Using Apache POI for Excel Files
+ * Using Apache PDF Box for PDF Files
+ * Using Apache Commons IO for various
+ *
+ * Notes:
+ * - DashboardPresenter (Loaded through DashboardView - afterburner convention) loads all injected classes, any classes
+ *  that are injected can be injected here to ensure full dependency tree instantiation
+ */
 public class App extends Application {
     protected static final Logger LOG = LoggerFactory.getLogger(App.class);
 
@@ -23,9 +40,6 @@ public class App extends Application {
 
         DashboardView appView = new DashboardView();
         Scene scene = new Scene(appView.getView());
-
-//        BootView bootView = new BootView();
-//        Scene scene = new Scene(bootView.getView());
 
         stage.setTitle("Floortech Data Scraper | Scheduling");
 //        final String uri = getClass().getResource("skin.css").toExternalForm();
