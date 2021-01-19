@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="small-padded" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tech.jmcs.floortech.scheduling.ui.extractors.ExtractorsPresenter">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="small-padded" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tech.jmcs.floortech.scheduling.ui.extractors.ExtractorsPresenter">
    <children>
       <TitledPane text="Data Sources" VBox.vgrow="NEVER">
          <content>
@@ -21,7 +21,7 @@
                         <Label styleClass="field-label" text="Detailing Job Folder:" />
                         <TextField fx:id="detailingFolderPathTextfield" promptText="eg. C:\..\19000" styleClass="field" />
                         <Button mnemonicParsing="false" onAction="#handleBrowseJobFolderButtonAction" text="Change..." />
-                        <Button mnemonicParsing="false" styleClass="bold-text" text="Auto-Fill" />
+                        <Button mnemonicParsing="false" onAction="#handleAutoFillDraftingFilesButtonAction" styleClass="bold-text" text="Auto-Fill" />
                      </children>
                      <styleClass>
                         <String fx:value="row-container" />

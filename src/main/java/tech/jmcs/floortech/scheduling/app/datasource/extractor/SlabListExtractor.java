@@ -55,10 +55,13 @@ public class SlabListExtractor extends PdfTextDataSourceExtractor<SlabData> {
         boolean foundThickAngle = thickAngleMatcher.find();
         boolean foundThinAngle = thinAngleMatcher.find();
         LOG.debug("Found Floor Area: {}, Thick Angle: {}, and Thin Angle: {}", foundFloorArea, foundThickAngle, foundThinAngle);
-        if (foundFloorArea && foundThickAngle && foundThinAngle) {
-            return true;
+        if (!foundFloorArea || !foundThickAngle || !foundThinAngle) {
+            if (!foundFloorArea) this.validationErrors.add("Floor area could not be read from PDF: " + this.getSourceFilePath().getFileName().toString());
+            if (!foundThickAngle) this.validationErrors.add("Thick Angle could not be read from PDF: " + this.getSourceFilePath().getFileName().toString());
+            if (!foundThinAngle) this.validationErrors.add("Thin Angle could not be read from PDF: " + this.getSourceFilePath().getFileName().toString());
+            return false;
         }
-        return false;
+        return true;
     }
 
     @Override

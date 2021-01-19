@@ -8,10 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import org.slf4j.Logger;
@@ -239,7 +236,7 @@ public class DataFramePresenter implements Initializable {
     }
 
     private void installSlabDataTable() {
-        Map<Long, SlabData> slabData = this .extractedDataHolder.getSlabDataMap();
+        Map<Long, SlabData> slabData = this.extractedDataHolder.getSlabDataMap();
 
         List<SlabDataObservable> slabDataList = slabData.entrySet().stream()
                 .map(m -> ObservableDataConverter.convert(m.getValue()))
@@ -264,11 +261,19 @@ public class DataFramePresenter implements Initializable {
         vbox.setPrefWidth(VBox.USE_COMPUTED_SIZE);
         vbox.setPrefHeight(VBox.USE_COMPUTED_SIZE);
         VBox.setVgrow(vbox, Priority.ALWAYS);
-
 //        vbox.setMaxWidth();
-        vbox.setBackground(new Background(new BackgroundFill(Paint.valueOf("#cccc77"), CornerRadii.EMPTY, Insets.EMPTY)));
+        vbox.setBackground(new Background(new BackgroundFill(Paint.valueOf("#eeeeee"), CornerRadii.EMPTY, Insets.EMPTY)));
 
-        vbox.getChildren().add(table);
+        HBox toolbarBox = new HBox();
+
+        CheckBox dataCommitEnabledCheckbox = new CheckBox();
+        dataCommitEnabledCheckbox.setSelected(true);
+        Label dataCommitEnabledLabel = new Label("Data Commit Enabled");
+        dataCommitEnabledLabel.setLabelFor(dataCommitEnabledCheckbox);
+
+        toolbarBox.getChildren().addAll(dataCommitEnabledLabel, dataCommitEnabledCheckbox);
+
+        vbox.getChildren().addAll(toolbarBox, table);
 
         Tab tab = new Tab();
         tab.setText(name + " Data");

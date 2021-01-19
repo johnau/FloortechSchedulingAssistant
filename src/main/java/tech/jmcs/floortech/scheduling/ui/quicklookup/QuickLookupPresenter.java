@@ -5,15 +5,27 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import tech.jmcs.floortech.scheduling.app.filesearch.FloortechFinder;
+import tech.jmcs.floortech.scheduling.app.settings.SettingsHolder;
 import tech.jmcs.floortech.scheduling.app.util.FloortechHelper;
+import tech.jmcs.floortech.scheduling.ui.QuickLookupDataHolderFX;
+import tech.jmcs.floortech.scheduling.ui.exceptions.SettingNotSetException;
 
+import javax.inject.Inject;
+import java.io.FileNotFoundException;
 import java.net.URL;
+import java.nio.file.Path;
 import java.util.ResourceBundle;
 
 public class QuickLookupPresenter implements Initializable {
     protected static final Logger LOG = LoggerFactory.getLogger(QuickLookupPresenter.class);
+
+    @Inject private SettingsHolder settingsHolder;
+    @Inject private QuickLookupDataHolderFX quickLookupDataHolder;
 
     @FXML private TextField jobNumberTextField;
 
@@ -24,7 +36,18 @@ public class QuickLookupPresenter implements Initializable {
     }
 
     @FXML
+    public void handleKeyPressOnJobNumberFieldAction(KeyEvent event) {
+        if (event.getCode().equals(KeyCode.ENTER)) {
+            this.doAutoFillAction();
+        }
+    }
+
+    @FXML
     public void handleAutoFillButtonAction(ActionEvent event) {
+        doAutoFillAction();
+    }
+
+    private void doAutoFillAction() {
         String jobNumberStr = this.jobNumberTextField.getText();
         boolean valid = FloortechHelper.isValidJobNumber(jobNumberStr);
         if (!valid) {
@@ -40,6 +63,38 @@ public class QuickLookupPresenter implements Initializable {
         }
 
         LOG.warn("Auto fill not yet implemented");
+
+        FloortechFinder fileFinder = new FloortechFinder(this.settingsHolder.getJobFoldersDetailingRootPath(), this.settingsHolder.getJobFilesSchedulingRootPath());
+        Path jobFolderPath = null;
+        try {
+            jobFolderPath = fileFinder.findJobFolder(jobNumberStr);
+        } catch (FileNotFoundException e) {
+            Alert alert = new Alert(Alert.AlertType.WARNING,
+                    "The path provided for Detailing Job Folders '" + e.getMessage() +"'was invalid. \n Please check settings.");
+            alert.setTitle("Invalid path");
+            alert.setHeaderText("Invalid Detailing Job Folders Path");
+            alert.showAndWait();
+            return;
+        } catch (SettingNotSetException e) {
+            Alert alert = new Alert(Alert.AlertType.WARNING,
+                    "The " + e.getMessage() + " setting is not set");
+            alert.setTitle("Setting not set");
+            alert.setHeaderText(e.getMessage() + " setting is not set");
+            alert.showAndWait();
+            return;
+        }
+
+        if (jobFolderPath == null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING,
+                    "Could not find Detailing folder for job: " + jobNumberStr);
+            alert.setTitle("Folder not found");
+            alert.setHeaderText("Can't find folder for " + jobNumberStr);
+            alert.showAndWait();
+            return;
+        }
+
+        this.quickLookupDataHolder.setJobFolder(jobFolderPath);
+
         // lookup scheduling file based on job number
         // populate text field
         // lookup job folder based on job number

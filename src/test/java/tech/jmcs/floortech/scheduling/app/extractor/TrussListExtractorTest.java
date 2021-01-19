@@ -35,9 +35,26 @@ class TrussListExtractorTest {
         System.out.printf("File is valid: %s \n", valid.toString());
     }
 
+    /**
+     * Test for checking if truss list is valid format / layout
+     */
+    @Test
+    void testValidateTrussList3() {
+        Path excelFile = Paths.get(getResourcePath(), "Truss List With Hopley.XLS");
+        TrussListExtractor extractor = DataExtractorFactory.openExcelFileAsTrussList(excelFile);
+        if (extractor == null) {
+            System.out.println("Could not create extractor, is the file in open in excel? does it exist?");
+            return;
+        }
+
+        Boolean valid = extractor.isValid();
+        System.out.printf("File is valid: %s \n", valid.toString());
+    }
+
     @Test
     void testExtractTrussListData() {
         Path excelFile = Paths.get(getResourcePath(), "19383", "LOT 5017 JOSEPH BANK BOULEVARD, BANKSIA GROVE - 19383.xls");
+//        Path excelFile = Paths.get("D:\\appdev\\floortech_env\\Floortech\\drafting\\jobs\\1DETAILING\\FLOORTECH JULY'19-ON\\17974\\LOT 246 (#22) TRINGA CIRCLE, WATERFORD - 17974.XLS");
 //        Path excelFile = Paths.get("D:\\appdev\\floortech_env\\Floortech\\drafting\\jobs\\1DETAILING\\FLOORTECH JULY'19-ON\\17974\\LOT 246 (#22) TRINGA CIRCLE, WATERFORD - 17974.XLS");
         TrussListExtractor extractor = DataExtractorFactory.openExcelFileAsTrussList(excelFile);
         if (extractor == null) {

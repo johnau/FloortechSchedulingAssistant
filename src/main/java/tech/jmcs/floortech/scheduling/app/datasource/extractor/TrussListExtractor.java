@@ -12,10 +12,7 @@ import tech.jmcs.floortech.scheduling.app.util.XLSHelper;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -27,9 +24,13 @@ public class TrussListExtractor extends ExcelDataSourceExtractor<TrussData> {
 
     protected static final String TRUSS_SCHEDULE_TITLE_PT1_260 = "CW260";
     protected static final String TRUSS_SCHEDULE_TITLE_PT1_346 = "CW346";
+    protected static final String TRUSS_SCHEDULE_TITLE_PT1_200 = "HJ200";
+    protected static final String TRUSS_SCHEDULE_TITLE_PT1_300 = "HJ300";
     protected static final String TRUSS_SCHEDULE_TITLE_PT2 = " Joist Schedule";
     protected static final String TRUSS_SCHEDULE_TITLE_260 = TRUSS_SCHEDULE_TITLE_PT1_260 + TRUSS_SCHEDULE_TITLE_PT2;
     protected static final String TRUSS_SCHEDULE_TITLE_346 = TRUSS_SCHEDULE_TITLE_PT1_346 + TRUSS_SCHEDULE_TITLE_PT2;
+    protected static final String TRUSS_SCHEDULE_TITLE_200 = TRUSS_SCHEDULE_TITLE_PT1_200 + TRUSS_SCHEDULE_TITLE_PT2;
+    protected static final String TRUSS_SCHEDULE_TITLE_300 = TRUSS_SCHEDULE_TITLE_PT1_300 + TRUSS_SCHEDULE_TITLE_PT2;
     protected static final String COL_A_TITLE = "ID";
     protected static final String COL_B_TITLE = "No.";
     protected static final String COL_C_TITLE = "Truss Length";
@@ -48,8 +49,12 @@ public class TrussListExtractor extends ExcelDataSourceExtractor<TrussData> {
 
     protected final Map<Integer, String> columnNames;
 
+    protected boolean hasMultipleTables;
+
     protected TrussListExtractor(Path excelFile) throws IOException {
         super(excelFile);
+
+        this.hasMultipleTables = false;
 
         this.setTargetSheetNumber(0);
 
@@ -68,8 +73,42 @@ public class TrussListExtractor extends ExcelDataSourceExtractor<TrussData> {
 
     }
 
+    public Map<Integer, Integer> scanForTables() {
+        // scan the workbook for more than one table,
+        // store the dimensions of each table
+        // return as a list of table descriptors.
+
+        Sheet sheet = this.getTargetSheet();
+
+        DataFormatter dataFormatter = new DataFormatter();
+
+        Map<Integer, Integer> tableStartColMap = new HashMap<>();
+        Row firstRow = sheet.getRow(0);
+        int n = -1;
+        for (Cell cell : firstRow) {
+            n++;
+            if (n == 0) {
+                String cv = dataFormatter.formatCellValue(cell);
+                if (cv.toLowerCase().contains("schedule")) {
+                    LOG.debug("Detected a truss table at Col 0");
+                    tableStartColMap.put(1, 0);
+                }
+            } else if (n+1 > this.columnNames.size()) {
+                String cv = dataFormatter.formatCellValue(cell);
+                if (cv.toLowerCase().contains("schedule")) {
+                    LOG.debug("Detected a truss table at Col {}", n);
+                    tableStartColMap.put(tableStartColMap.size()+1, n);
+                }
+            }
+        }
+
+        return tableStartColMap;
+    }
+
     @Override
     public Boolean isValid() {
+        this.scanForTables();
+
         // check the truss listing xls layout and cell contents for expected layout
 
         Sheet firstSheet = this.getTargetSheet();
@@ -93,10 +132,12 @@ public class TrussListExtractor extends ExcelDataSourceExtractor<TrussData> {
                 if (c % 2 == 0) {
                     /** Even Rows Will be Truss Rows */
 
-                    if (!trussIdOk(row, lastTrussId)) errors.add("Missing or Duplicated Truss ID found (Expected sequential ID's starting from 01)");
+                    if (!trussIdOk(row, lastTrussId)) errors.add("Missing or Duplicated Truss ID found @ '" + lastTrussId + "' (Expected sequential ID's starting from 01)");
                     String trussId = dataFormatter.formatCellValue(XLSHelper.getCellByColumnIndex(row, 0)); // null cell ok
-                    lastTrussId = trussId;
-                    LOG.debug("Just found a new truss id: {}", lastTrussId);
+                    if (!trussId.isEmpty()) {
+                        lastTrussId = trussId;
+                        LOG.debug("Just found a new truss id: {}", lastTrussId);
+                    }
 
                 } else { // odd row, check is a total row
                     /** Odd Rows Will be Total Rows */
@@ -111,10 +152,14 @@ public class TrussListExtractor extends ExcelDataSourceExtractor<TrussData> {
                     LOG.debug("Truss list extraction error: {}", error);
                 }
 
+                this.validationErrors.clear();
+                this.validationErrors.addAll(errors);
+
                 return false;
             }
         }
 
+        LOG.debug("Valid check passed!");
         return true;
     }
 
@@ -239,7 +284,7 @@ public class TrussListExtractor extends ExcelDataSourceExtractor<TrussData> {
             n += 1;
 
             if (n+1 > this.columnNames.size()) {
-                LOG.debug("There are extra columns in this table that are being ignored: {}", cell.getStringCellValue());
+                LOG.debug("There are extra columns in this table that are being ignored or there is another table which will be scanned after: {}", cell.getStringCellValue());
                 continue;
             }
             String colName = this.columnNames.get(n).toLowerCase().trim();
@@ -271,7 +316,9 @@ public class TrussListExtractor extends ExcelDataSourceExtractor<TrussData> {
             String aLwr = cellA.getStringCellValue().toLowerCase();
 
             if (aLwr.equals(TRUSS_SCHEDULE_TITLE_260.toLowerCase())
-                    || aLwr.equals(TRUSS_SCHEDULE_TITLE_346.toLowerCase())) {
+                    || aLwr.equals(TRUSS_SCHEDULE_TITLE_346.toLowerCase())
+                    || aLwr.equals(TRUSS_SCHEDULE_TITLE_200.toLowerCase())
+                    || aLwr.equals(TRUSS_SCHEDULE_TITLE_300.toLowerCase())) {
                 LOG.debug("Truss list title matched expected Strings");
                 return true;
             }

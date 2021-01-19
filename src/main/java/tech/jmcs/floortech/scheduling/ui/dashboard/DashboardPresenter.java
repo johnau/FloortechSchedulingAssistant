@@ -2,7 +2,6 @@ package tech.jmcs.floortech.scheduling.ui.dashboard;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -12,16 +11,12 @@ import tech.jmcs.floortech.scheduling.app.ExtractedDataToScheduleConverter;
 import tech.jmcs.floortech.scheduling.app.settings.SettingsHolder;
 import tech.jmcs.floortech.scheduling.app.settings.SettingsLoader;
 import tech.jmcs.floortech.scheduling.app.settings.SettingsWriter;
-import tech.jmcs.floortech.scheduling.ui.DataTargetHolder;
-import tech.jmcs.floortech.scheduling.ui.ExtractorComponentHolderFX;
-import tech.jmcs.floortech.scheduling.ui.ExtractorManagerFX;
+import tech.jmcs.floortech.scheduling.ui.*;
 import tech.jmcs.floortech.scheduling.ui.commitbutton.CommitButtonView;
 import tech.jmcs.floortech.scheduling.ui.commitbutton.addrowchoices.AddRowChoicesView;
 import tech.jmcs.floortech.scheduling.ui.commitbutton.conflictchoices.ConflictChoicesView;
-import tech.jmcs.floortech.scheduling.ui.commitbutton.nomatchchoices.NoMatchChoicesPresenter;
 import tech.jmcs.floortech.scheduling.ui.commitbutton.nomatchchoices.NoMatchChoicesView;
 import tech.jmcs.floortech.scheduling.ui.dataframe.DataFrameView;
-import tech.jmcs.floortech.scheduling.ui.ExtractedDataHolderFX;
 import tech.jmcs.floortech.scheduling.ui.datatarget.DataTargetView;
 import tech.jmcs.floortech.scheduling.ui.extractbutton.ExtractButtonView;
 import tech.jmcs.floortech.scheduling.ui.extractors.ExtractorsView;
@@ -60,6 +55,7 @@ public class DashboardPresenter implements Initializable {
     @Inject private ExtractorManagerFX extractorManager;
     @Inject private ExtractedDataHolderFX extractedDataHolder;
     @Inject private DataTargetHolder targetHolder;
+    @Inject private QuickLookupDataHolderFX quickLookupDataHolder;
 
     @FXML private VBox leftPanelVbox; // left panel
     @FXML private VBox leftVbox1;
@@ -69,6 +65,7 @@ public class DashboardPresenter implements Initializable {
     @FXML private VBox leftVbox5;
     @FXML private AnchorPane rightPanelAnchorPane; // right panel
     @FXML private HBox toolbarHbox; // top right panel (alongside header / title)
+    @FXML private VBox statusContainer;
 
 //    private Scene settingsScene;
 

@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="mainAnchorPane" prefHeight="1500.0" prefWidth="600.0" styleClass="main-container" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tech.jmcs.floortech.scheduling.ui.settings.SettingsPresenter">
+<AnchorPane fx:id="mainAnchorPane" prefHeight="1500.0" prefWidth="600.0" styleClass="main-container" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tech.jmcs.floortech.scheduling.ui.settings.SettingsPresenter">
    <children>
       <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -43,7 +43,7 @@
                            <children>
                               <Label styleClass="setting-label" text="Job Folders (Detailing) Root" />
                               <TextField fx:id="detailingFoldersRootTextfield" styleClass="setting-field" />
-                              <Button mnemonicParsing="false" text="Change..." />
+                              <Button mnemonicParsing="false" onAction="#handleChangeJobFoldersDetailingRootButtonAction" text="Change..." />
                            </children>
                            <styleClass>
                               <String fx:value="row-container" />
@@ -54,7 +54,7 @@
                            <children>
                               <Label styleClass="setting-label" text="Job Files (Scheduling) Root" />
                               <TextField fx:id="schedulingFolderRootTextfield" styleClass="setting-field" />
-                              <Button mnemonicParsing="false" text="Change..." />
+                              <Button mnemonicParsing="false" onAction="#handleChangeJobFilesSchedulingRootButtonAction" text="Change..." />
                            </children>
                            <styleClass>
                               <String fx:value="row-container" />
@@ -186,6 +186,18 @@
                                     </HBox>
                                     <HBox>
                                        <children>
+                                          <Label styleClass="setting-label" text="Data File Name Pattern" />
+                                          <TextField fx:id="trussDataFileNameTextField" />
+                                          <Label text="Extension" />
+                                          <TextField fx:id="trussDataFileExtensionTextField" maxWidth="50.0" prefWidth="50.0" />
+                                       </children>
+                                       <styleClass>
+                                          <String fx:value="row-container" />
+                                          <String fx:value="small-padded" />
+                                       </styleClass>
+                                    </HBox>
+                                    <HBox>
+                                       <children>
                                           <Label styleClass="setting-label-short" text="Schedule Section" />
                                           <ChoiceBox fx:id="trussScheduleSectionChoiceBox" prefWidth="150.0" />
                                        </children>
@@ -194,7 +206,7 @@
                                           <String fx:value="small-padded" />
                                        </styleClass>
                                     </HBox>
-                                    <TitledPane text="Truss Data Schedule Entries">
+                                    <TitledPane expanded="false" text="Truss Data Schedule Entries">
                                        <content>
                                           <VBox styleClass="small-padded">
                                              <children>
@@ -367,6 +379,18 @@
                                     </HBox>
                                     <HBox>
                                        <children>
+                                          <Label styleClass="setting-label" text="Data File Name Pattern" />
+                                          <TextField fx:id="beamDataFileNameTextField" />
+                                          <Label text="Extension" />
+                                          <TextField fx:id="beamDataFileExtensionTextField" maxWidth="50.0" prefWidth="50.0" />
+                                       </children>
+                                       <styleClass>
+                                          <String fx:value="row-container" />
+                                          <String fx:value="small-padded" />
+                                       </styleClass>
+                                    </HBox>
+                                    <HBox>
+                                       <children>
                                           <Label styleClass="setting-label-short" text="Schedule Section" />
                                           <ChoiceBox fx:id="beamScheduleSectionChoiceBox" prefWidth="150.0" />
                                        </children>
@@ -375,7 +399,7 @@
                                           <String fx:value="small-padded" />
                                        </styleClass>
                                     </HBox>
-                                    <TitledPane text="Beam Data Schedule Entries">
+                                    <TitledPane expanded="false" text="Beam Data Schedule Entries">
                                        <content>
                                           <VBox styleClass="small-padded">
                                              <children>
@@ -438,6 +462,18 @@
                                        <children>
                                           <Label styleClass="setting-label" text="Built-in Slab Data Extractor Enabled" />
                                           <CheckBox fx:id="slabExtractorEnabledCheckbox" mnemonicParsing="false" />
+                                       </children>
+                                       <styleClass>
+                                          <String fx:value="row-container" />
+                                          <String fx:value="small-padded" />
+                                       </styleClass>
+                                    </HBox>
+                                    <HBox>
+                                       <children>
+                                          <Label styleClass="setting-label" text="Data File Name Pattern" />
+                                          <TextField fx:id="slabDataFileNameTextField" />
+                                          <Label text="Extension" />
+                                          <TextField fx:id="slabDataFileExtensionTextField" maxWidth="50.0" prefWidth="50.0" />
                                        </children>
                                        <styleClass>
                                           <String fx:value="row-container" />
@@ -541,6 +577,18 @@
                                        <children>
                                           <Label styleClass="setting-label" text="Built-in Sheet Data Extractor Enabled" />
                                           <CheckBox fx:id="sheetExtractorEnabledCheckbox" mnemonicParsing="false" />
+                                       </children>
+                                       <styleClass>
+                                          <String fx:value="row-container" />
+                                          <String fx:value="small-padded" />
+                                       </styleClass>
+                                    </HBox>
+                                    <HBox>
+                                       <children>
+                                          <Label styleClass="setting-label" text="Data File Name Pattern" />
+                                          <TextField fx:id="sheetDataFileNameTextField" />
+                                          <Label text="Extension" />
+                                          <TextField fx:id="sheetDataFileExtensionTextField" maxWidth="50.0" prefWidth="50.0" />
                                        </children>
                                        <styleClass>
                                           <String fx:value="row-container" />

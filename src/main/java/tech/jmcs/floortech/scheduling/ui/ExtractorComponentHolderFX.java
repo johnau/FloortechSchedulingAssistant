@@ -1,9 +1,8 @@
 package tech.jmcs.floortech.scheduling.ui;
 
 import com.sun.xml.internal.ws.util.StringUtils;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
@@ -55,11 +54,29 @@ public class ExtractorComponentHolderFX {
      */
     public Map<String, DataExtractorDescriptorFX> getActiveExtractors() {
         return this.dataExtractorMapFX.entrySet().stream()
-                .filter(f -> f.getValue().getEnabled())
+                .filter(f -> f.getValue().isEnabled())
                 .collect(Collectors.toMap(
                         m -> m.getKey(),
                         m -> m.getValue())
                 );
+    }
+
+    public void addAdditionalFilePathToExtractor(String name) {
+        this.addAdditionalFilePathToExtractor(name, "");
+    }
+
+    public void addAdditionalFilePathToExtractor(String name, String path) {
+        Optional<DataExtractorDescriptorFX> _extractor = this.dataExtractorMapFX.entrySet().stream()
+                .filter(f -> f.getKey().equals(name))
+                .map(m -> m.getValue())
+                .findFirst();
+        if (_extractor.isPresent()) {
+            DataExtractorDescriptorFX extractor = _extractor.get();
+            VBox filePathsVbox = extractor.getFilePathVbox();
+            filePathsVbox.getChildren().add(this.buildFilePathHbox(extractor.getType(), path));
+        } else {
+            LOG.debug("No extractor present with the name {}", name);
+        }
     }
 
     /**
@@ -91,22 +108,11 @@ public class ExtractorComponentHolderFX {
         this.buildBuiltInExtractor(DataSourceExtractorType.TRUSS);
     }
 
-    private void buildBuiltInExtractor(DataSourceExtractorType type) {
-        DataExtractorDescriptorFX extractorDescriptor = new DataExtractorDescriptorFX();
+    private HBox buildFilePathHbox(DataSourceExtractorType type) {
+        return this.buildFilePathHbox(type, "");
+    }
 
-        VBox vbox = new VBox();
-        vbox.setPrefHeight(VBox.USE_COMPUTED_SIZE);
-        vbox.setPrefWidth(VBox.USE_COMPUTED_SIZE);
-        vbox.getStyleClass().add("small-padded");
-
-        Label headerLabel = new Label();
-        headerLabel.setText(type.getName() + " Extractor (Built-in)");
-        headerLabel.getStyleClass().add("sub-header");
-
-        VBox filePathsVbox = new VBox();
-        filePathsVbox.setPrefHeight(HBox.USE_COMPUTED_SIZE);
-        filePathsVbox.setPrefWidth(HBox.USE_COMPUTED_SIZE);
-
+    private HBox buildFilePathHbox(DataSourceExtractorType type, String fieldText) {
         HBox filePathHbox = new HBox();
         filePathHbox.setPrefHeight(HBox.USE_COMPUTED_SIZE);
         filePathHbox.setPrefWidth(HBox.USE_COMPUTED_SIZE);
@@ -119,6 +125,8 @@ public class ExtractorComponentHolderFX {
         TextField pathField = new TextField();
         pathField.setPromptText("eg. C:\\..\\jobs\\19000\\" + FileType.fileTypesMap.get(type.getFileType()));
         pathField.getStyleClass().add("field");
+        pathField.setId("pathField");
+        if (fieldText != null && !fieldText.isEmpty()) pathField.setText(fieldText);
 
         Button browseButton = new Button("Browse...");
         browseButton.setOnAction(event -> {
@@ -140,7 +148,7 @@ public class ExtractorComponentHolderFX {
             fileChooser.setSelectedExtensionFilter(extFilterXls);
             fileChooser.setTitle(type.getName() + " | Choose Data File for Extractor...");
 
-            File fileChosen = fileChooser.showOpenDialog(vbox.getScene().getWindow());
+            File fileChosen = fileChooser.showOpenDialog(browseButton.getScene().getWindow());
             if (fileChosen != null) {
                 String filePath = fileChosen.getPath();
                 pathField.setText(filePath);
@@ -153,30 +161,68 @@ public class ExtractorComponentHolderFX {
 
         filePathHbox.getChildren().addAll(fieldLabel, pathField, browseButton);
 
-        filePathsVbox.getChildren().addAll(filePathHbox);
+        return filePathHbox;
+    }
 
-        HBox addFileButtonHbox = new HBox();
-        addFileButtonHbox.setPrefHeight(HBox.USE_COMPUTED_SIZE);
-        addFileButtonHbox.setPrefWidth(HBox.USE_COMPUTED_SIZE);
-        addFileButtonHbox.getStyleClass().add("row-container");
-        
-        Button addFileButton = new Button("Add another file +");
-        
-        addFileButtonHbox.getChildren().add(addFileButton);
-        
+    private void buildBuiltInExtractor(DataSourceExtractorType type) {
+        DataExtractorDescriptorFX extractorDescriptor = new DataExtractorDescriptorFX();
+
+        VBox vbox = new VBox();
+        vbox.setPrefHeight(VBox.USE_COMPUTED_SIZE);
+        vbox.setPrefWidth(VBox.USE_COMPUTED_SIZE);
+        vbox.getStyleClass().add("small-padded");
+
+        Label headerLabel = new Label();
+        headerLabel.setText(type.getName() + " Extractor (Built-in)");
+        headerLabel.getStyleClass().add("sub-header");
+
+        VBox filePathsVbox = new VBox();
+        filePathsVbox.setPrefHeight(HBox.USE_COMPUTED_SIZE);
+        filePathsVbox.setPrefWidth(HBox.USE_COMPUTED_SIZE);
+
+        HBox filePathHbox = buildFilePathHbox(type);
+        Optional<Node> _pathField = filePathHbox.getChildren().stream().filter(f -> f.getId() != null && f.getId().equals("pathField")).findFirst();
+        TextField pathField = (TextField) _pathField.get(); // no checks
+
+        filePathsVbox.getChildren().add(filePathHbox);
+
+        // NOTE: removed all add file functionality, multiple files of one type will not be present or needed.
+
+//        HBox addFileButtonHbox = new HBox();
+//        addFileButtonHbox.setPrefHeight(HBox.USE_COMPUTED_SIZE);
+//        addFileButtonHbox.setPrefWidth(HBox.USE_COMPUTED_SIZE);
+//        addFileButtonHbox.getStyleClass().add("row-container");
+//
+//        Button addFileButton = new Button("Add another file +");
+//        addFileButton.setOnAction(event -> {
+//            HBox additionalFilePathBox = this.buildFilePathHbox(type);
+//            filePathsVbox.getChildren().add(additionalFilePathBox);
+//        });
+//
+//        addFileButtonHbox.getChildren().add(addFileButton);
+
         Separator separator = new Separator();
         separator.setOrientation(Orientation.HORIZONTAL);
 
-        vbox.getChildren().addAll(headerLabel, filePathsVbox, addFileButtonHbox, separator);
+//        vbox.getChildren().addAll(headerLabel, filePathsVbox, addFileButtonHbox, separator);
+        vbox.getChildren().addAll(headerLabel, filePathsVbox, separator);
 
         extractorDescriptor.setName(type.getName());
         extractorDescriptor.setType(type);
         extractorDescriptor.setExtractorVbox(vbox);
+        extractorDescriptor.setFilePathVbox(filePathsVbox);
         extractorDescriptor.setFilePathTextProperty(pathField.textProperty());
         extractorDescriptor.setCustomExtractorDetails(null);
         extractorDescriptor.setEnabled(true);
 
         this.dataExtractorMapFX.put(extractorDescriptor.getName(), extractorDescriptor);
 //        this.enabledDataSources.put(extractorDescriptor.getName(), true);
+    }
+
+    public void clearAllFields() {
+        this.dataExtractorMapFX.forEach( (name, descriptor) -> {
+            descriptor.getFilePathTextProperty().set("");
+            LOG.debug("Cleared file path for {}", name);
+        });
     }
 }

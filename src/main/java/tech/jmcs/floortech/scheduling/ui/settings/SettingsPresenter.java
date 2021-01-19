@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
@@ -52,6 +53,15 @@ public class SettingsPresenter implements Initializable {
     @FXML private ChoiceBox<String> slabScheduleSectionChoiceBox;
     @FXML private ChoiceBox<String> sheetScheduleSectionChoiceBox;
 
+    @FXML private TextField trussDataFileNameTextField;
+    @FXML private TextField trussDataFileExtensionTextField;
+    @FXML private TextField beamDataFileNameTextField;
+    @FXML private TextField beamDataFileExtensionTextField;
+    @FXML private TextField slabDataFileNameTextField;
+    @FXML private TextField slabDataFileExtensionTextField;
+    @FXML private TextField sheetDataFileNameTextField;
+    @FXML private TextField sheetDataFileExtensionTextField;
+
     @FXML private Button saveAndCloseButton;
     private List<Consumer<Boolean>> onSaveConsumers;
 
@@ -71,6 +81,58 @@ public class SettingsPresenter implements Initializable {
 
     public void update() {
         this.updateSettingsFromMemory();
+    }
+
+    @FXML
+    public void handleChangeJobFoldersDetailingRootButtonAction(ActionEvent event) {
+        DirectoryChooser dirChooser = new DirectoryChooser();
+
+        dirChooser.setTitle("Choose Detailing Root Directory...");
+        if (!this.detailingFoldersRootTextfield.getText().isEmpty()) {
+            String fieldText = this.detailingFoldersRootTextfield.getText();
+            Path fieldPath = Paths.get(fieldText);
+            File fieldFile = fieldPath.toFile();
+            if (fieldPath != null && fieldFile.exists()) {
+                if (fieldFile.isDirectory()) {
+                    dirChooser.setInitialDirectory(fieldFile);
+                } else {
+                    dirChooser.setInitialDirectory(fieldPath.getParent().toFile());
+                }
+            }
+        }
+        File result = dirChooser.showDialog(this.mainAnchorPane.getScene().getWindow());
+        if (result != null) {
+            Path p = result.toPath();
+            this.detailingFoldersRootTextfield.setText(p.toString());
+        } else {
+            LOG.debug("Choosing job folders detailing root aborted...");
+        }
+    }
+
+    @FXML
+    public void handleChangeJobFilesSchedulingRootButtonAction(ActionEvent event) {
+        DirectoryChooser dirChooser = new DirectoryChooser();
+
+        dirChooser.setTitle("Choose Detailing Root Directory...");
+        if (!this.schedulingFolderRootTextfield.getText().isEmpty()) {
+            String fieldText = this.schedulingFolderRootTextfield.getText();
+            Path fieldPath = Paths.get(fieldText);
+            File fieldFile = fieldPath.toFile();
+            if (fieldPath != null && fieldFile.exists()) {
+                if (fieldFile.isDirectory()) {
+                    dirChooser.setInitialDirectory(fieldFile);
+                } else {
+                    dirChooser.setInitialDirectory(fieldPath.getParent().toFile());
+                }
+            }
+        }
+        File result = dirChooser.showDialog(this.mainAnchorPane.getScene().getWindow());
+        if (result != null) {
+            Path p = result.toPath();
+            this.schedulingFolderRootTextfield.setText(p.toString());
+        } else {
+            LOG.debug("Choosing job files scheduling root aborted...");
+        }
     }
 
     @FXML
@@ -151,6 +213,9 @@ public class SettingsPresenter implements Initializable {
 
     @FXML
     public void handleSaveSettingsAndCloseButtonAction(ActionEvent event) {
+        boolean settingsOk = preCheckSettings();
+        if (!settingsOk) return;
+
         saveSettingsToMemory();
 
         try {
@@ -198,10 +263,60 @@ public class SettingsPresenter implements Initializable {
         return null;
     }
 
+    private boolean preCheckSettings() {
+        String schedulingRoot = this.schedulingFolderRootTextfield.getText();
+        if (!schedulingRoot.isEmpty()) {
+            if (!Paths.get(schedulingRoot).toFile().exists()) {
+                String contentText = "The path set for Job Scheduling Files Root is invalid. If you continue the path will not be saved. Would you like to continue?";
+                Alert alert = new Alert(Alert.AlertType.WARNING, contentText, ButtonType.YES, ButtonType.NO);
+                alert.setTitle("Invalid Path");
+                alert.setHeaderText("Job Scheduling Files Path was not valid!");
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.isPresent()) {
+                    if (result.get().equals(ButtonType.NO)) {
+                        return false;
+                    }
+                }
+            }
+        }
+
+        String detailingRoot = this.detailingFoldersRootTextfield.getText();
+        if (!detailingRoot.isEmpty()) { // check not empty
+            if (!Paths.get(detailingRoot).toFile().exists()) {
+                String contentText = "The path set for Job Detailing Files Root is invalid. If you continue the path will not be saved. Would you like to continue?";
+                Alert alert = new Alert(Alert.AlertType.WARNING, contentText, ButtonType.YES, ButtonType.NO);
+                alert.setTitle("Invalid Path");
+                alert.setHeaderText("Job Detailing Files Path was not valid!");
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.isPresent()) {
+                    if (result.get().equals(ButtonType.NO)) {
+                        return false;
+                    }
+                }
+            }
+        }
+
+        return true;
+    }
+
     private void saveSettingsToMemory() {
-        this.settingsHolder.setAllSettings(
-                Paths.get(this.schedulingFolderRootTextfield.getText()),
-                Paths.get(this.detailingFoldersRootTextfield.getText()),
+        boolean abortExitSettingsWindow = false;
+
+        // Job Files Scheduling Root Path
+        try {
+            this.settingsHolder.setJobFilesSchedulingRootPath(Paths.get(this.schedulingFolderRootTextfield.getText()));
+        } catch (FileNotFoundException e) {
+            LOG.debug("Did not set scheduling files root");
+        }
+
+        // Job Files Drafting Root Path
+        try {
+            this.settingsHolder.setJobFoldersDetailingRootPath(Paths.get(this.detailingFoldersRootTextfield.getText()));
+        } catch (FileNotFoundException e) {
+            LOG.debug("Did not set detailing files root");
+        }
+
+        this.settingsHolder.setSettingsGroup1(
                 this.beamExtractorEnabledCheckbox.isSelected(),
                 this.beamScheduleSectionChoiceBox.getSelectionModel().getSelectedItem(),
                 this.sheetExtractorEnabledCheckbox.isSelected(),
@@ -209,10 +324,15 @@ public class SettingsPresenter implements Initializable {
                 this.slabExtractorEnabledCheckbox.isSelected(),
                 this.slabScheduleSectionChoiceBox.getSelectionModel().getSelectedItem(),
                 this.trussExtractorEnabledCheckbox.isSelected(),
-                this.trussScheduleSectionChoiceBox.getSelectionModel().getSelectedItem(),
-                this.excelScheduleSheetNameTextField.getText(),
-                this.scheduleSectionsList.getItems() // ok to pass the observable list?...
+                this.trussScheduleSectionChoiceBox.getSelectionModel().getSelectedItem()
         );
+
+//        this.settingsHolder.se
+
+//        this.settingsHolder.setAllSettings(
+//                Paths.get(this.schedulingFolderRootTextfield.getText()),
+//                Paths.get(this.detailingFoldersRootTextfield.getText()),
+
     }
 
     private void updateSettingsFromMemory() {
@@ -220,12 +340,23 @@ public class SettingsPresenter implements Initializable {
         Path schedulingFilesRootPath = this.settingsHolder.getJobFilesSchedulingRootPath();
 
         Boolean trussExtractorEnabled = this.settingsHolder.isBuiltInTrussExtractorEnabled();
+        String trussFileName = this.settingsHolder.getTrussDataFileName();
+        String trussFileExt = this.settingsHolder.getTrussFileExtension();
         String trussScheduleSectionName = this.settingsHolder.getTrussScheduleSectionName();
+
         Boolean slabExtractorEnabled = this.settingsHolder.isBuiltInSlabExtractorEnabled();
+        String slabFileName = this.settingsHolder.getSlabDataFileName();
+        String slabFileExt = this.settingsHolder.getSlabFileExtension();
         String slabScheduleSectionName = this.settingsHolder.getSlabScheduleSectionName();
+
         Boolean sheetExtractorEnabled = this.settingsHolder.isBuiltInSheetExtractorEnabled();
+        String sheetFileName = this.settingsHolder.getSheetDataFileName();
+        String sheetFileExt = this.settingsHolder.getSheetFileExtension();
         String sheetScheduleSectionName = this.settingsHolder.getSheetScheduleSectionName();
+
         Boolean beamExtractorEnabled = this.settingsHolder.isBuiltInBeamExtractorEnabled();
+        String beamFileName = this.settingsHolder.getBeamDataFileName();
+        String beamFileExt = this.settingsHolder.getBeamFileExtension();
         String beamScheduleSectionName = this.settingsHolder.getBeamScheduleSectionName();
 
         String excelScheduleSheetName = this.settingsHolder.getExcelScheduleSheetName();
@@ -239,18 +370,23 @@ public class SettingsPresenter implements Initializable {
         this.schedulingFolderRootTextfield.setText(schedulingFilesRootPath == null ? "" : schedulingFilesRootPath.toString());
 
         this.trussExtractorEnabledCheckbox.setSelected(trussExtractorEnabled == null || trussExtractorEnabled);
+        this.trussDataFileNameTextField.setText(trussFileName);
+        this.trussDataFileExtensionTextField.setText(trussFileExt);
         this.trussScheduleSectionChoiceBox.setValue(trussScheduleSectionName == null ? "" : trussScheduleSectionName);
+
         this.slabExtractorEnabledCheckbox.setSelected(slabExtractorEnabled == null || slabExtractorEnabled);
+        this.slabDataFileNameTextField.setText(slabFileName);
+        this.slabDataFileExtensionTextField.setText(slabFileExt);
         this.slabScheduleSectionChoiceBox.setValue(slabScheduleSectionName == null ? "" : slabScheduleSectionName);
+
         this.sheetExtractorEnabledCheckbox.setSelected(sheetExtractorEnabled == null || sheetExtractorEnabled);
+        this.sheetDataFileNameTextField.setText(sheetFileName);
+        this.sheetDataFileExtensionTextField.setText(sheetFileExt);
         this.sheetScheduleSectionChoiceBox.setValue(sheetScheduleSectionName == null ? "" : sheetScheduleSectionName);
-        StringBuilder b = new StringBuilder();
-        this.beamScheduleSectionChoiceBox.getItems().forEach(c -> {
-            b.append(c);
-            b.append(", ");
-        });
-        LOG.debug("Beam extractor values {} + setting {}", b.toString(), beamScheduleSectionName);
+
         this.beamExtractorEnabledCheckbox.setSelected(beamExtractorEnabled == null || beamExtractorEnabled);
+        this.beamDataFileNameTextField.setText(beamFileName);
+        this.beamDataFileExtensionTextField.setText(beamFileExt);
         this.beamScheduleSectionChoiceBox.setValue(beamScheduleSectionName == null ? "" : beamScheduleSectionName);
 
 

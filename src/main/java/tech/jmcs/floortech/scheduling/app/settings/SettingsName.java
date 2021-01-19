@@ -3,13 +3,25 @@ package tech.jmcs.floortech.scheduling.app.settings;
 public enum SettingsName {
     JOB_FILES_SCHEDULING_PATH ("job_files_scheduling_path"),
     JOB_FOLDERS_DETAILING_PATH ("job_folders_detailing_path"),
+
     BUILT_IN_TRUSS_EXTRACTOR_ENABLED ("built_in_truss_extractor_enabled"),
+    BUILT_IN_TRUSS_FILE_NAME_PATTERN ("built_in_truss_file_name"),
+    BUILT_IN_TRUSS_FILE_EXT ("built_in_truss_file_extension"),
     TRUSS_SCHEDULE_SECTION_NAME ("truss_schedule_section_name"),
+
     BUILT_IN_BEAM_EXTRACTOR_ENABLED ("built_in_beam_extractor_enabled"),
+    BUILT_IN_BEAM_FILE_NAME_PATTERN ("built_in_beam_file_name"),
+    BUILT_IN_BEAM_FILE_EXT ("built_in_beam_file_extension"),
     BEAM_SCHEDULE_SECTION_NAME ("beam_schedule_section_name"),
+
     BUILT_IN_SHEET_EXTRACTOR_ENABLED ("built_in_sheet_extractor_enabled"),
+    BUILT_IN_SHEET_FILE_NAME_PATTERN ("built_in_sheet_file_name"),
+    BUILT_IN_SHEET_FILE_EXT ("built_in_sheet_file_extension"),
     SHEET_SCHEDULE_SECTION_NAME ("sheet_schedule_section_name"),
+
     BUILT_IN_SLAB_EXTRACTOR_ENABLED ("built_in_slab_extractor_enabled"),
+    BUILT_IN_SLAB_FILE_NAME_PATTERN ("built_in_slab_file_name"),
+    BUILT_IN_SLAB_FILE_EXT ("built_in_slab_file_extension"),
     SLAB_SCHEDULE_SECTION_NAME ("slab_schedule_section_name"),
 
     EXCEL_SCHEDULE_SECTION_NAMES ("excel_schedule_section_names"),

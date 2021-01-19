@@ -17,12 +17,23 @@ public class SettingsHelper {
         Path jobFoldersDetailingRootPath = settingsHolder.getJobFoldersDetailingRootPath();
 
         Boolean builtInBeamExtractorEnabled = settingsHolder.isBuiltInBeamExtractorEnabled();
+        String builtInBeamFileName = settingsHolder.getBeamDataFileName();
+        String builtInBeamFileExt = settingsHolder.getBeamFileExtension();
         String beamScheduleSectionName = settingsHolder.getBeamScheduleSectionName();
+
         Boolean builtInSlabExtractorEnabled = settingsHolder.isBuiltInSlabExtractorEnabled();
+        String builtInSlabFileName = settingsHolder.getSlabDataFileName();
+        String builtInSlabFileExt = settingsHolder.getSlabFileExtension();
         String slabScheduleSectionName = settingsHolder.getSlabScheduleSectionName();
+
         Boolean builtInSheetExtractorEnabled = settingsHolder.isBuiltInSheetExtractorEnabled();
+        String builtInSheetFileName = settingsHolder.getSheetDataFileName();
+        String builtInSheetFileExt = settingsHolder.getSheetFileExtension();
         String sheetScheduleSectionName = settingsHolder.getSheetScheduleSectionName();
+
         Boolean builtInTrussExtractorEnabled = settingsHolder.isBuiltInTrussExtractorEnabled();
+        String builtInTrussFileName = settingsHolder.getTrussDataFileName();
+        String builtInTrussFileExt = settingsHolder.getTrussFileExtension();
         String trussScheduleSectionName = settingsHolder.getTrussScheduleSectionName();
 
         String scheduleSheetName = settingsHolder.getExcelScheduleSheetName();
@@ -67,12 +78,23 @@ public class SettingsHelper {
         properties.setProperty(SettingsName.JOB_FOLDERS_DETAILING_PATH.getSettingsFilePropertyName(), jobFoldersDetailingRootPath == null ? "" : jobFoldersDetailingRootPath.toString());
 
         properties.setProperty(SettingsName.BUILT_IN_BEAM_EXTRACTOR_ENABLED.getSettingsFilePropertyName(), builtInBeamExtractorEnabled == null ? "true" : builtInBeamExtractorEnabled.toString());
+        properties.setProperty(SettingsName.BUILT_IN_BEAM_FILE_NAME_PATTERN.getSettingsFilePropertyName(), builtInBeamFileName == null ? "" : builtInBeamFileName);
+        properties.setProperty(SettingsName.BUILT_IN_BEAM_FILE_EXT.getSettingsFilePropertyName(), builtInBeamFileExt == null ? "" : builtInBeamFileExt);
         properties.setProperty(SettingsName.BEAM_SCHEDULE_SECTION_NAME.getSettingsFilePropertyName(), beamScheduleSectionName == null ? "" : beamScheduleSectionName);
+
         properties.setProperty(SettingsName.BUILT_IN_SLAB_EXTRACTOR_ENABLED.getSettingsFilePropertyName(), builtInSlabExtractorEnabled == null ? "true" : builtInSlabExtractorEnabled.toString());
+        properties.setProperty(SettingsName.BUILT_IN_SLAB_FILE_NAME_PATTERN.getSettingsFilePropertyName(), builtInSlabFileName == null ? "" : builtInSlabFileName);
+        properties.setProperty(SettingsName.BUILT_IN_SLAB_FILE_EXT.getSettingsFilePropertyName(), builtInSlabFileExt == null ? "" : builtInSlabFileExt);
         properties.setProperty(SettingsName.SLAB_SCHEDULE_SECTION_NAME.getSettingsFilePropertyName(), slabScheduleSectionName == null ? "" : slabScheduleSectionName);
+
         properties.setProperty(SettingsName.BUILT_IN_SHEET_EXTRACTOR_ENABLED.getSettingsFilePropertyName(), builtInSheetExtractorEnabled == null ? "true" : builtInSheetExtractorEnabled.toString());
+        properties.setProperty(SettingsName.BUILT_IN_SHEET_FILE_NAME_PATTERN.getSettingsFilePropertyName(), builtInSheetFileName == null ? "" : builtInSheetFileName);
+        properties.setProperty(SettingsName.BUILT_IN_SHEET_FILE_EXT.getSettingsFilePropertyName(), builtInSheetFileExt == null ? "" : builtInSheetFileExt);
         properties.setProperty(SettingsName.SHEET_SCHEDULE_SECTION_NAME.getSettingsFilePropertyName(), sheetScheduleSectionName == null ? "" : sheetScheduleSectionName);
+
         properties.setProperty(SettingsName.BUILT_IN_TRUSS_EXTRACTOR_ENABLED.getSettingsFilePropertyName(), builtInTrussExtractorEnabled == null ? "true" : builtInTrussExtractorEnabled.toString());
+        properties.setProperty(SettingsName.BUILT_IN_TRUSS_FILE_NAME_PATTERN.getSettingsFilePropertyName(), builtInTrussFileName == null ? "" : builtInTrussFileName);
+        properties.setProperty(SettingsName.BUILT_IN_TRUSS_FILE_EXT.getSettingsFilePropertyName(), builtInTrussFileExt == null ? "" : builtInTrussFileExt);
         properties.setProperty(SettingsName.TRUSS_SCHEDULE_SECTION_NAME.getSettingsFilePropertyName(), trussScheduleSectionName == null ? "" : trussScheduleSectionName);
 
         properties.setProperty(SettingsName.EXCEL_SCHEDULE_SHEET_NAME.getSettingsFilePropertyName(), scheduleSheetName == null ? "" : scheduleSheetName);
@@ -122,12 +144,23 @@ public class SettingsHelper {
         Path jobFoldersDetailingPath = Paths.get(properties.getProperty(SettingsName.JOB_FOLDERS_DETAILING_PATH.getSettingsFilePropertyName()));
 
         Boolean builtInBeamExtractorEnabled = Boolean.parseBoolean(properties.getProperty(SettingsName.BUILT_IN_BEAM_EXTRACTOR_ENABLED.getSettingsFilePropertyName()));
+        String builtInBeamFileNamePattern = properties.getProperty(SettingsName.BUILT_IN_BEAM_FILE_NAME_PATTERN.getSettingsFilePropertyName());
+        String builtInBeamFileExt = properties.getProperty(SettingsName.BUILT_IN_BEAM_FILE_EXT.getSettingsFilePropertyName());
         String beamScheduleSectionName = properties.getProperty(SettingsName.BEAM_SCHEDULE_SECTION_NAME.getSettingsFilePropertyName());
+
         Boolean builtInSheetExtractorEnabled = Boolean.parseBoolean(properties.getProperty(SettingsName.BUILT_IN_SHEET_EXTRACTOR_ENABLED.getSettingsFilePropertyName()));
+        String builtInSheetFileNamePattern = properties.getProperty(SettingsName.BUILT_IN_SHEET_FILE_NAME_PATTERN.getSettingsFilePropertyName());
+        String builtInSheetFileExt = properties.getProperty(SettingsName.BUILT_IN_SHEET_FILE_EXT.getSettingsFilePropertyName());
         String sheetScheduleSectionName = properties.getProperty(SettingsName.SHEET_SCHEDULE_SECTION_NAME.getSettingsFilePropertyName());
+
         Boolean builtInSlabExtractorEnabled = Boolean.parseBoolean(properties.getProperty(SettingsName.BUILT_IN_SLAB_EXTRACTOR_ENABLED.getSettingsFilePropertyName()));
+        String builtInSlabFileNamePattern = properties.getProperty(SettingsName.BUILT_IN_SLAB_FILE_NAME_PATTERN.getSettingsFilePropertyName());
+        String builtInSlabFileExt = properties.getProperty(SettingsName.BUILT_IN_SLAB_FILE_EXT.getSettingsFilePropertyName());
         String slabScheduleSectionName = properties.getProperty(SettingsName.SLAB_SCHEDULE_SECTION_NAME.getSettingsFilePropertyName());
+
         Boolean builtInTrussExtractorEnabled = Boolean.parseBoolean(properties.getProperty(SettingsName.BUILT_IN_TRUSS_EXTRACTOR_ENABLED.getSettingsFilePropertyName()));
+        String builtInTrussFileNamePattern = properties.getProperty(SettingsName.BUILT_IN_TRUSS_FILE_NAME_PATTERN.getSettingsFilePropertyName());
+        String builtInTrussFileExt = properties.getProperty(SettingsName.BUILT_IN_TRUSS_FILE_EXT.getSettingsFilePropertyName());
         String trussScheduleSectionName = properties.getProperty(SettingsName.TRUSS_SCHEDULE_SECTION_NAME.getSettingsFilePropertyName());
 
         String scheduleSheetName = properties.getProperty(SettingsName.EXCEL_SCHEDULE_SHEET_NAME.getSettingsFilePropertyName());
@@ -186,13 +219,25 @@ public class SettingsHelper {
 
         // set to settings holder
         settingsHolder.setBuiltInBeamExtractorEnabled(builtInBeamExtractorEnabled);
+        settingsHolder.setBeamDataFileName(builtInBeamFileNamePattern);
+        settingsHolder.setBeamFileExtension(builtInBeamFileExt);
         settingsHolder.setBeamScheduleSectionName(beamScheduleSectionName);
+
         settingsHolder.setBuiltInSheetExtractorEnabled(builtInSheetExtractorEnabled);
+        settingsHolder.setSheetDataFileName(builtInSheetFileNamePattern);
+        settingsHolder.setSheetFileExtension(builtInSheetFileExt);
         settingsHolder.setSheetScheduleSectionName(sheetScheduleSectionName);
+
         settingsHolder.setBuiltInSlabExtractorEnabled(builtInSlabExtractorEnabled);
+        settingsHolder.setSlabDataFileName(builtInSlabFileNamePattern);
+        settingsHolder.setSlabFileExtension(builtInSlabFileExt);
         settingsHolder.setSlabScheduleSectionName(slabScheduleSectionName);
+
         settingsHolder.setBuiltInTrussExtractorEnabled(builtInTrussExtractorEnabled);
+        settingsHolder.setTrussDataFileName(builtInTrussFileNamePattern);
+        settingsHolder.setTrussFileExtension(builtInTrussFileExt);
         settingsHolder.setTrussScheduleSectionName(trussScheduleSectionName);
+
         try {
             settingsHolder.setJobFilesSchedulingRootPath(jobFilesSchedulingPath);
         } catch (FileNotFoundException e) {

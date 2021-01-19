@@ -8,18 +8,18 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" styleClass="small-padded" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tech.jmcs.floortech.scheduling.ui.quicklookup.QuickLookupPresenter">
+<VBox alignment="CENTER" styleClass="small-padded" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tech.jmcs.floortech.scheduling.ui.quicklookup.QuickLookupPresenter">
    <children>
       <HBox alignment="CENTER" VBox.vgrow="NEVER">
          <children>
             <Label styleClass="field-label" text="Job Number:" />
-            <TextField fx:id="jobNumberTextField" promptText="eg. 19000">
+            <TextField fx:id="jobNumberTextField" onKeyPressed="#handleKeyPressOnJobNumberFieldAction" promptText="eg. 19000">
                <styleClass>
                   <String fx:value="short-field" />
-                  <String fx:value="big-text" />
+                  <String fx:value="juicy-button" />
                </styleClass>
             </TextField>
-            <Button mnemonicParsing="false" onAction="#handleAutoFillButtonAction" styleClass="big-text" text="Auto-Fill All" />
+            <Button mnemonicParsing="false" onAction="#handleAutoFillButtonAction" styleClass="juicy-button" text="Auto-Fill All" />
          </children>
          <styleClass>
             <String fx:value="centered-row" />

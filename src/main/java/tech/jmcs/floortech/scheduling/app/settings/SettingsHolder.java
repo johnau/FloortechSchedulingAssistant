@@ -33,12 +33,20 @@ public class SettingsHolder {
 
     private Boolean builtInTrussExtractorEnabled;
     private String trussScheduleSectionName;
+    private String trussDataFileName;
+    private String trussFileExtension;
     private Boolean builtInBeamExtractorEnabled;
     private String beamScheduleSectionName;
+    private String beamDataFileName;
+    private String beamFileExtension;
     private Boolean builtInSheetExtractorEnabled;
     private String sheetScheduleSectionName;
+    private String sheetDataFileName;
+    private String sheetFileExtension;
     private Boolean builtInSlabExtractorEnabled;
     private String slabScheduleSectionName;
+    private String slabDataFileName;
+    private String slabFileExtension;
 
     private String scheduleEntryCw260Truss;
     private String scheduleEntryCw346Truss;
@@ -84,32 +92,19 @@ public class SettingsHolder {
 
     /**
      * Set all method
-     * @param jobFilesSchedulingRootPath
-     * @param jobFoldersDetailingRootPath
      * @param builtInBeamExtractorEnabled
      * @param builtInSheetExtractorEnabled
      * @param builtInSlabExtractorEnabled
      * @param builtInTrussExtractorEnabled
      */
-    public void setAllSettings(Path jobFilesSchedulingRootPath, Path jobFoldersDetailingRootPath,
-                               Boolean builtInBeamExtractorEnabled,
-                               String beamScheduleSection,
-                               Boolean builtInSheetExtractorEnabled,
-                               String sheetScheduleSection,
-                               Boolean builtInSlabExtractorEnabled,
-                               String slabScheduleSection,
-                               Boolean builtInTrussExtractorEnabled,
-                               String trussScheduleSection,
-                               String scheduleSheetName,
-                               List<String> excelScheduleSections) {
-        try {
-            this.setJobFilesSchedulingRootPath(jobFilesSchedulingRootPath);
-        } catch (FileNotFoundException e) {
-        }
-        try {
-            this.setJobFoldersDetailingRootPath(jobFoldersDetailingRootPath);
-        } catch (FileNotFoundException e) {
-        }
+    public void setSettingsGroup1(Boolean builtInBeamExtractorEnabled,
+                                  String beamScheduleSection,
+                                  Boolean builtInSheetExtractorEnabled,
+                                  String sheetScheduleSection,
+                                  Boolean builtInSlabExtractorEnabled,
+                                  String slabScheduleSection,
+                                  Boolean builtInTrussExtractorEnabled,
+                                  String trussScheduleSection) {
 
         this.setBuiltInBeamExtractorEnabled(builtInBeamExtractorEnabled);
         this.setBeamScheduleSectionName(beamScheduleSection);
@@ -120,8 +115,6 @@ public class SettingsHolder {
         this.setBuiltInTrussExtractorEnabled(builtInTrussExtractorEnabled);
         this.setTrussScheduleSectionName(trussScheduleSection);
 
-        this.setExcelScheduleSheetName(scheduleSheetName);
-        this.setExcelScheduleFileSections(excelScheduleSections);
 //        LOG.debug("Set: js path: {} jd path{} beam {} sheet {} slab {} truss {} ", jobFilesSchedulingRootPath, jobFoldersDetailingRootPath, builtInBeamExtractorEnabled, builtInSheetExtractorEnabled, builtInSlabExtractorEnabled, builtInTrussExtractorEnabled);
     }
 
@@ -131,7 +124,7 @@ public class SettingsHolder {
     }
 
     public void setJobFilesSchedulingRootPath(Path jobFilesSchedulingRootPath) throws FileNotFoundException {
-        if (jobFilesSchedulingRootPath == Paths.get("")) {
+        if (jobFilesSchedulingRootPath == null || jobFilesSchedulingRootPath.toString().isEmpty()) {
             this.jobFilesSchedulingRootPath = null;
             return;
         }
@@ -151,7 +144,7 @@ public class SettingsHolder {
     }
 
     public void setJobFoldersDetailingRootPath(Path jobFoldersDetailingRootPath) throws FileNotFoundException {
-        if (jobFoldersDetailingRootPath == null) {
+        if (jobFoldersDetailingRootPath == null || jobFoldersDetailingRootPath.toString().isEmpty()) {
             this.jobFoldersDetailingRootPath = Paths.get("");
             return;
         }
@@ -667,5 +660,69 @@ public class SettingsHolder {
             return;
         }
         this.scheduleEntrySlabThinAngle = scheduleEntrySlabThinAngle;
+    }
+
+    public String getTrussDataFileName() {
+        return trussDataFileName;
+    }
+
+    public void setTrussDataFileName(String trussDataFileName) {
+        this.trussDataFileName = trussDataFileName;
+    }
+
+    public String getBeamDataFileName() {
+        return beamDataFileName;
+    }
+
+    public void setBeamDataFileName(String beamDataFileName) {
+        this.beamDataFileName = beamDataFileName;
+    }
+
+    public String getSheetDataFileName() {
+        return sheetDataFileName;
+    }
+
+    public void setSheetDataFileName(String sheetDataFileName) {
+        this.sheetDataFileName = sheetDataFileName;
+    }
+
+    public String getSlabDataFileName() {
+        return slabDataFileName;
+    }
+
+    public void setSlabDataFileName(String slabDataFileName) {
+        this.slabDataFileName = slabDataFileName;
+    }
+
+    public String getTrussFileExtension() {
+        return trussFileExtension;
+    }
+
+    public void setTrussFileExtension(String trussFileExtension) {
+        this.trussFileExtension = trussFileExtension;
+    }
+
+    public String getBeamFileExtension() {
+        return beamFileExtension;
+    }
+
+    public void setBeamFileExtension(String beamFileExtension) {
+        this.beamFileExtension = beamFileExtension;
+    }
+
+    public String getSheetFileExtension() {
+        return sheetFileExtension;
+    }
+
+    public void setSheetFileExtension(String sheetFileExtension) {
+        this.sheetFileExtension = sheetFileExtension;
+    }
+
+    public String getSlabFileExtension() {
+        return slabFileExtension;
+    }
+
+    public void setSlabFileExtension(String slabFileExtension) {
+        this.slabFileExtension = slabFileExtension;
     }
 }

@@ -1,6 +1,7 @@
 package tech.jmcs.floortech.scheduling.ui;
 
 import javafx.beans.property.StringProperty;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import tech.jmcs.floortech.scheduling.app.types.DataSourceExtractorType;
 
@@ -14,7 +15,9 @@ public class DataExtractorDescriptorFX {
     private Object customExtractorDetails;
     private StringProperty filePathText;
     private VBox extractorVbox;
+    private VBox filePathVbox;
     private Boolean enabled;
+//    private TextField filePathField;
 
     public DataExtractorDescriptorFX() {
 
@@ -52,7 +55,7 @@ public class DataExtractorDescriptorFX {
         }
     }
 
-    public StringProperty filePathTextProperty() {
+    public StringProperty getFilePathTextProperty() {
         return filePathText;
     }
 
@@ -68,11 +71,28 @@ public class DataExtractorDescriptorFX {
         this.extractorVbox = extractorVbox;
     }
 
-    public Boolean getEnabled() {
+    public Boolean isEnabled() {
         return enabled;
     }
 
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
     }
+
+    public VBox getFilePathVbox() {
+        return filePathVbox;
+    }
+
+    public void setFilePathVbox(VBox filePathVbox) {
+        this.filePathVbox = filePathVbox;
+    }
+
+    //
+//    public TextField getFilePathField() {
+//        return filePathField;
+//    }
+//
+//    public void setFilePathFieldValue(String filePathFieldValue) {
+//        this.filePathField.setText(filePathFieldValue);
+//    }
 }

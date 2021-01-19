@@ -70,6 +70,8 @@ public class BeamListExtractor extends ExcelDataSourceExtractor<BeamData> {
 
             if (!errors.isEmpty()) {
                 // TODO: Finish error collection to display to user
+                this.validationErrors.clear();
+                this.validationErrors.addAll(errors);
                 return false;
             }
             c += 1;
