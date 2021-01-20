@@ -45,7 +45,7 @@ public class App extends Application {
 //        final String uri = getClass().getResource("skin.css").toExternalForm();
 //        scene.getStylesheets().add(uri);
         stage.setScene(scene);
-        stage.setMinHeight(800);
+        stage.setMinHeight(900);
         stage.setMinWidth(1400);
         stage.show();
     }

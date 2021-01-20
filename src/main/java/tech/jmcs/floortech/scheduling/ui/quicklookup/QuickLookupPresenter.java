@@ -13,7 +13,9 @@ import tech.jmcs.floortech.scheduling.app.filesearch.FloortechFinder;
 import tech.jmcs.floortech.scheduling.app.settings.SettingsHolder;
 import tech.jmcs.floortech.scheduling.app.util.FloortechHelper;
 import tech.jmcs.floortech.scheduling.ui.QuickLookupDataHolderFX;
+import tech.jmcs.floortech.scheduling.ui.StatusHolderFX;
 import tech.jmcs.floortech.scheduling.ui.exceptions.SettingNotSetException;
+import tech.jmcs.floortech.scheduling.ui.helper.StatusType;
 
 import javax.inject.Inject;
 import java.io.FileNotFoundException;
@@ -24,6 +26,7 @@ import java.util.ResourceBundle;
 public class QuickLookupPresenter implements Initializable {
     protected static final Logger LOG = LoggerFactory.getLogger(QuickLookupPresenter.class);
 
+    @Inject private StatusHolderFX statusHolder;
     @Inject private SettingsHolder settingsHolder;
     @Inject private QuickLookupDataHolderFX quickLookupDataHolder;
 
@@ -62,7 +65,7 @@ public class QuickLookupPresenter implements Initializable {
             return;
         }
 
-        LOG.warn("Auto fill not yet implemented");
+        this.statusHolder.addStatus(StatusType.NORMAL, "Scanning for job files and folders...");
 
         FloortechFinder fileFinder = new FloortechFinder(this.settingsHolder.getJobFoldersDetailingRootPath(), this.settingsHolder.getJobFilesSchedulingRootPath());
         Path jobFolderPath = null;
@@ -94,6 +97,7 @@ public class QuickLookupPresenter implements Initializable {
         }
 
         this.quickLookupDataHolder.setJobFolder(jobFolderPath);
+        this.statusHolder.addStatus(StatusType.IMPORTANT, "Found job folder @ " + jobFolderPath);
 
         // lookup scheduling file based on job number
         // populate text field

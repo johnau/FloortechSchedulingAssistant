@@ -14,6 +14,41 @@
       <URL value="@dashboard.css" />
    </stylesheets>
    <children>
+      <SplitPane dividerPositions="0.9" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+        <items>
+            <SplitPane dividerPositions="0.3" minHeight="100.0">
+               <items>
+                  <ScrollPane fitToHeight="true" fitToWidth="true" maxWidth="800.0" minWidth="100.0">
+                     <content>
+                        <AnchorPane>
+                           <children>
+                              <VBox fx:id="leftPanelVbox" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <VBox fx:id="leftVbox1" VBox.vgrow="NEVER" />
+                                    <VBox fx:id="leftVbox2" VBox.vgrow="NEVER" />
+                                    <VBox fx:id="leftVbox3" VBox.vgrow="NEVER" />
+                                    <VBox fx:id="leftVbox4" VBox.vgrow="NEVER" />
+                                    <VBox fx:id="leftVbox5" VBox.vgrow="NEVER" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </ScrollPane>
+                  <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="200.0">
+                     <children>
+                        <ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <content>
+                              <AnchorPane fx:id="rightPanelAnchorPane" />
+                           </content>
+                        </ScrollPane>
+                     </children>
+                  </AnchorPane>
+               </items>
+            </SplitPane>
+            <AnchorPane fx:id="statusContainer" maxHeight="150.0" minHeight="20.0" />
+        </items>
+      </SplitPane>
       <HBox layoutX="14.0" layoutY="14.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="50.0" styleClass="main-container" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <HBox alignment="CENTER_LEFT">
@@ -24,39 +59,5 @@
             <HBox fx:id="toolbarHbox" alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS" />
          </children>
       </HBox>
-      <SplitPane dividerPositions="0.3" layoutY="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
-         <items>
-            <ScrollPane fitToHeight="true" fitToWidth="true" maxWidth="800.0" minWidth="100.0">
-               <content>
-                  <AnchorPane>
-                     <children>
-                        <VBox fx:id="leftPanelVbox" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <children>
-                              <VBox fx:id="leftVbox1" VBox.vgrow="NEVER" />
-                              <VBox fx:id="leftVbox2" VBox.vgrow="NEVER" />
-                              <VBox fx:id="leftVbox3" VBox.vgrow="NEVER" />
-                              <VBox fx:id="leftVbox4" VBox.vgrow="NEVER" />
-                              <VBox fx:id="leftVbox5" VBox.vgrow="NEVER" />
-                           </children></VBox>
-                     </children>
-                  </AnchorPane>
-               </content>
-            </ScrollPane>
-            <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="200.0">
-               <children>
-                  <SplitPane dividerPositions="0.8" orientation="VERTICAL" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <items>
-                        <ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
-                           <content>
-                              <AnchorPane fx:id="rightPanelAnchorPane" />
-                           </content>
-                        </ScrollPane>
-                        <VBox fx:id="statusContainer" />
-                     </items>
-                  </SplitPane>
-               </children>
-            </AnchorPane>
-         </items>
-      </SplitPane>
    </children>
 </AnchorPane>

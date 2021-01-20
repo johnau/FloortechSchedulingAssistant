@@ -20,9 +20,11 @@ import tech.jmcs.floortech.scheduling.ui.dataframe.DataFrameView;
 import tech.jmcs.floortech.scheduling.ui.datatarget.DataTargetView;
 import tech.jmcs.floortech.scheduling.ui.extractbutton.ExtractButtonView;
 import tech.jmcs.floortech.scheduling.ui.extractors.ExtractorsView;
+import tech.jmcs.floortech.scheduling.ui.helper.StatusType;
 import tech.jmcs.floortech.scheduling.ui.quicklookup.QuickLookupView;
 import tech.jmcs.floortech.scheduling.ui.settings.SettingsView;
 import tech.jmcs.floortech.scheduling.ui.settingsbutton.SettingsButtonView;
+import tech.jmcs.floortech.scheduling.ui.status.StatusView;
 
 import javax.inject.Inject;
 import java.io.IOException;
@@ -46,6 +48,7 @@ public class DashboardPresenter implements Initializable {
     @Inject private NoMatchChoicesView noMatchChoiceView;
     @Inject private ConflictChoicesView conflictChoicesView;
     @Inject private AddRowChoicesView addRowChoicesView;
+    @Inject private StatusView statusView;
 
     @Inject private SettingsLoader settingsLoader;
     @Inject private SettingsWriter settingsWriter;
@@ -56,6 +59,7 @@ public class DashboardPresenter implements Initializable {
     @Inject private ExtractedDataHolderFX extractedDataHolder;
     @Inject private DataTargetHolder targetHolder;
     @Inject private QuickLookupDataHolderFX quickLookupDataHolder;
+    @Inject private StatusHolderFX statusHolder;
 
     @FXML private VBox leftPanelVbox; // left panel
     @FXML private VBox leftVbox1;
@@ -65,17 +69,15 @@ public class DashboardPresenter implements Initializable {
     @FXML private VBox leftVbox5;
     @FXML private AnchorPane rightPanelAnchorPane; // right panel
     @FXML private HBox toolbarHbox; // top right panel (alongside header / title)
-    @FXML private VBox statusContainer;
-
-//    private Scene settingsScene;
+    @FXML private AnchorPane statusContainer;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) { // resource bundle populated from *.properties
         LOG.info("DashboardPresenter initializing...");
-
         loadSettings();
         buildExtractorViews(); // call after settings are loaded
         setupDashboard();
+        this.statusHolder.addStatus(StatusType.NORMAL, "Loaded Floortech Data Scraper.");
     }
 
     private void loadSettings() {
@@ -98,6 +100,7 @@ public class DashboardPresenter implements Initializable {
         dataTargetView.getViewAsync(this.leftVbox4.getChildren()::add);
         commitButtonView.getViewAsync(this.leftVbox5.getChildren()::add);
         dataFrameView.getViewAsync(this.rightPanelAnchorPane.getChildren()::add);
+        statusView.getViewAsync(this.statusContainer.getChildren()::add);
     }
 
 }

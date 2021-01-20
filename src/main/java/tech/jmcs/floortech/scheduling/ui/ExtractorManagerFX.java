@@ -37,7 +37,8 @@ public class ExtractorManagerFX {
         LOG.info("ExtractorManagerFX constructing...");
     }
 
-    public void processActiveExtractors() {
+    public List<String> processActiveExtractors() {
+        List<String> extractorsList = new ArrayList<>();
         this.extractorHolder.getActiveExtractors().forEach( (name, descriptor) -> {
             DataSourceExtractorType type = descriptor.getType();
             String name2 = descriptor.getName();
@@ -49,14 +50,17 @@ public class ExtractorManagerFX {
                 boolean success = this.processBuiltInDataSourceExtraction(name2, type, filePathText);
                 if (success) {
                     LOG.debug("Successfully extracted: {}", name2);
+                    extractorsList.add("Successfully extracted '" + name2 + "' from: " + filePathText);
                 } else {
                     LOG.warn("Failed to extract: {}", name2);
+                    extractorsList.add("Failed to extract '" + name2 + "' from: " + filePathText);
                 }
             }
             else if (type.equals(DataSourceExtractorType.GENERIC_SIMPLE)) {
                 // process generic simple data sources
             }
         });
+        return extractorsList;
     }
 
     private boolean processBuiltInDataSourceExtraction(String name, DataSourceExtractorType type, String filePath) {

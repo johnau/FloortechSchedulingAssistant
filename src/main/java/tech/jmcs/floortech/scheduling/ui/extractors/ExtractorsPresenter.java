@@ -21,7 +21,9 @@ import tech.jmcs.floortech.scheduling.app.util.PathUtilities;
 import tech.jmcs.floortech.scheduling.ui.ExtractedDataHolderFX;
 import tech.jmcs.floortech.scheduling.ui.ExtractorComponentHolderFX;
 import tech.jmcs.floortech.scheduling.ui.QuickLookupDataHolderFX;
+import tech.jmcs.floortech.scheduling.ui.StatusHolderFX;
 import tech.jmcs.floortech.scheduling.ui.exceptions.SettingNotSetException;
+import tech.jmcs.floortech.scheduling.ui.helper.StatusType;
 import tech.jmcs.floortech.scheduling.ui.settings.SettingsPresenter;
 import tech.jmcs.floortech.scheduling.ui.settings.SettingsView;
 
@@ -37,6 +39,7 @@ import java.util.function.Consumer;
 public class ExtractorsPresenter implements Initializable {
     protected static final Logger LOG = LoggerFactory.getLogger(ExtractorsPresenter.class);
 
+    @Inject private StatusHolderFX statusHolder;
     @Inject private SettingsHolder settingsHolder;
     @Inject private ExtractedDataHolderFX extractedDataHolder;
     @Inject private ExtractorComponentHolderFX extractorHolder;
@@ -188,6 +191,9 @@ public class ExtractorsPresenter implements Initializable {
                     validFiles.add(potentialFile);
                 } else {
                     List<String> errors = extractor.getValidationErrors();
+                    for (String error : errors) {
+                        this.statusHolder.addStatus(StatusType.NORMAL, error);
+                    }
 //                    displayValidationErrors("Built-In BEAM", errors, potentialFile);
                 }
             }
@@ -200,6 +206,9 @@ public class ExtractorsPresenter implements Initializable {
                     validFiles.add(potentialFile);
                 } else {
                     List<String> errors = extractor.getValidationErrors();
+                    for (String error : errors) {
+                        this.statusHolder.addStatus(StatusType.NORMAL, error);
+                    }
 //                    displayValidationErrors("Built-In TRUSS", errors, potentialFile);
                 }
             }
@@ -212,6 +221,9 @@ public class ExtractorsPresenter implements Initializable {
                     validFiles.add(potentialFile);
                 } else {
                     List<String> errors = extractor.getValidationErrors();
+                    for (String error : errors) {
+                        this.statusHolder.addStatus(StatusType.NORMAL, error);
+                    }
 //                    displayValidationErrors("Built-In SLAB", errors, potentialFile);
                 }
             }

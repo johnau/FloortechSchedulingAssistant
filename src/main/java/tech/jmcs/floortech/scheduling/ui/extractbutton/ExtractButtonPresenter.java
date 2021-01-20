@@ -6,14 +6,18 @@ import javafx.fxml.Initializable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tech.jmcs.floortech.scheduling.ui.ExtractorManagerFX;
+import tech.jmcs.floortech.scheduling.ui.StatusHolderFX;
+import tech.jmcs.floortech.scheduling.ui.helper.StatusType;
 
 import javax.inject.Inject;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ExtractButtonPresenter implements Initializable {
     protected static final Logger LOG = LoggerFactory.getLogger(ExtractButtonPresenter.class);
 
+    @Inject private StatusHolderFX statusHolder;
     @Inject private ExtractorManagerFX extractorManager;
 
     @Override
@@ -23,6 +27,11 @@ public class ExtractButtonPresenter implements Initializable {
 
     @FXML
     public void handleExtractDataButtonAction(ActionEvent event) {
-        extractorManager.processActiveExtractors();
+        this.statusHolder.addStatus(StatusType.NORMAL, "Begin extracting...");
+        List<String> extractorsList = extractorManager.processActiveExtractors();
+        for (String s : extractorsList) {
+            this.statusHolder.addStatus(StatusType.NORMAL, s);
+        }
+        this.statusHolder.addStatus(StatusType.NORMAL, "Completed extracting.");
     }
 }
