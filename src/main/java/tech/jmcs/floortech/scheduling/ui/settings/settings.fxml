@@ -97,7 +97,7 @@
                                                 <Label text="Column Layout" />
                                              </children>
                                           </HBox>
-                                          <TableView maxHeight="200.0" maxWidth="400.0" minHeight="150.0" prefHeight="200.0" prefWidth="400.0" VBox.vgrow="NEVER">
+                                          <TableView fx:id="columnLayoutTable" maxHeight="200.0" maxWidth="400.0" minHeight="150.0" prefHeight="200.0" prefWidth="400.0" VBox.vgrow="NEVER">
                                             <columns>
                                               <TableColumn prefWidth="75.0" text="Type" />
                                               <TableColumn prefWidth="75.0" text="Column" />
@@ -108,7 +108,7 @@
                                           </TableView>
                                           <HBox>
                                              <children>
-                                                <Button mnemonicParsing="false" text="Edit Selected" />
+                                                <Button mnemonicParsing="false" onAction="#handleEditSelectedColumnLayoutEntryButtonAction" text="Edit Selected" />
                                              </children>
                                              <styleClass>
                                                 <String fx:value="small-padded" />
@@ -206,7 +206,7 @@
                                           <String fx:value="small-padded" />
                                        </styleClass>
                                     </HBox>
-                                    <TitledPane expanded="false" text="Truss Data Schedule Entries">
+                                    <TitledPane text="Truss Data Schedule Entries">
                                        <content>
                                           <VBox styleClass="small-padded">
                                              <children>
@@ -216,25 +216,25 @@
                                                       <HBox styleClass="row-container">
                                                          <children>
                                                             <Label styleClass="setting-label" text="CW260 Entry" />
-                                                            <TextField />
+                                                            <TextField fx:id="trussEntry_cw260Field" styleClass="setting-field" />
                                                          </children>
                                                       </HBox>
                                                       <HBox styleClass="row-container">
                                                          <children>
                                                             <Label styleClass="setting-label" text="Standard Endcap CW260 Entry" />
-                                                            <TextField />
+                                                            <TextField fx:id="trussEntry_stdEndcapCw260Field" styleClass="setting-field" />
                                                          </children>
                                                       </HBox>
                                                       <HBox styleClass="row-container">
                                                          <children>
                                                             <Label styleClass="setting-label" text="Connection Endcap CW260 Entry" />
-                                                            <TextField />
+                                                            <TextField fx:id="trussEntry_necEndcapCw260Field" styleClass="setting-field" />
                                                          </children>
                                                       </HBox>
                                                       <HBox styleClass="row-container">
                                                          <children>
                                                             <Label styleClass="setting-label" text="Air-Con Peno CW260 Entry" />
-                                                            <TextField />
+                                                            <TextField fx:id="trussEntry_acPenoCw260Field" styleClass="setting-field" />
                                                          </children>
                                                       </HBox>
                                                    </children>
@@ -249,25 +249,25 @@
                                                       <HBox styleClass="row-container">
                                                          <children>
                                                             <Label styleClass="setting-label" text="CW346 Entry" />
-                                                            <TextField />
+                                                            <TextField fx:id="trussEntry_cw346Field" styleClass="setting-field" />
                                                          </children>
                                                       </HBox>
                                                       <HBox styleClass="row-container">
                                                          <children>
                                                             <Label styleClass="setting-label" text="Standard Endcap CW346 Entry" />
-                                                            <TextField />
+                                                            <TextField fx:id="trussEntry_stdEndcapCw346Field" styleClass="setting-field" />
                                                          </children>
                                                       </HBox>
                                                       <HBox styleClass="row-container">
                                                          <children>
                                                             <Label styleClass="setting-label" text="Connection Endcap CW346 Entry" />
-                                                            <TextField />
+                                                            <TextField fx:id="trussEntry_necEndcapCw346Field" styleClass="setting-field" />
                                                          </children>
                                                       </HBox>
                                                       <HBox styleClass="row-container">
                                                          <children>
                                                             <Label styleClass="setting-label" text="Air-Con Peno CW346 Entry" />
-                                                            <TextField />
+                                                            <TextField fx:id="trussEntry_acPenoCw346Field" styleClass="setting-field" />
                                                          </children>
                                                       </HBox>
                                                    </children>
@@ -282,19 +282,19 @@
                                                       <HBox styleClass="row-container">
                                                          <children>
                                                             <Label styleClass="setting-label" text="HJ200 Entry" />
-                                                            <TextField />
+                                                            <TextField fx:id="trussEntry_hj200Field" styleClass="setting-field" />
                                                          </children>
                                                       </HBox>
                                                       <HBox styleClass="row-container">
                                                          <children>
                                                             <Label styleClass="setting-label" text="Standard Endcap HJ200 Entry" />
-                                                            <TextField />
+                                                            <TextField fx:id="trussEntry_stdEndcapHj200Field" styleClass="setting-field" />
                                                          </children>
                                                       </HBox>
                                                       <HBox styleClass="row-container">
                                                          <children>
                                                             <Label styleClass="setting-label" text="Connection Endcap HJ200 Entry" />
-                                                            <TextField />
+                                                            <TextField fx:id="trussEntry_necEndcapHj200Field" styleClass="setting-field" />
                                                          </children>
                                                       </HBox>
                                                    </children>
@@ -309,25 +309,25 @@
                                                       <HBox styleClass="row-container">
                                                          <children>
                                                             <Label styleClass="setting-label" text="HJ300 Entry" />
-                                                            <TextField />
+                                                            <TextField fx:id="trussEntry_hj300Field" styleClass="setting-field" />
                                                          </children>
                                                       </HBox>
                                                       <HBox styleClass="row-container">
                                                          <children>
                                                             <Label styleClass="setting-label" text="Standard Endcap HJ300 Entry" />
-                                                            <TextField />
+                                                            <TextField fx:id="trussEntry_stdEndcapHj300Field" styleClass="setting-field" />
                                                          </children>
                                                       </HBox>
                                                       <HBox styleClass="row-container">
                                                          <children>
                                                             <Label styleClass="setting-label" text="Connection Endcap HJ300 Entry" />
-                                                            <TextField />
+                                                            <TextField fx:id="trussEntry_necEndcapHj300Field" styleClass="setting-field" />
                                                          </children>
                                                       </HBox>
                                                       <HBox styleClass="row-container">
                                                          <children>
                                                             <Label styleClass="setting-label" text="Air-Con Peno HJ300 Entry" textFill="#aaaaaa" />
-                                                            <TextField disable="true" />
+                                                            <TextField fx:id="trussEntry_acPenoHj300Field" disable="true" styleClass="setting-field" />
                                                          </children>
                                                       </HBox>
                                                    </children>
@@ -338,7 +338,7 @@
                                                 </VBox>
                                                 <HBox styleClass="row-container">
                                                    <children>
-                                                      <Button mnemonicParsing="false" styleClass="text-button" text="Test" />
+                                                      <Button mnemonicParsing="false" onAction="#handleTestTrussScheduleEntriesButtonAction" styleClass="text-button" text="Test" />
                                                    </children>
                                                 </HBox>
                                              </children>
@@ -406,30 +406,30 @@
                                                 <HBox styleClass="row-container">
                                                    <children>
                                                       <Label styleClass="setting-label" text="Black Keyword" />
-                                                      <TextField />
+                                                      <TextField fx:id="beamEntry_blackKeywordField" styleClass="setting-field" />
                                                    </children>
                                                 </HBox>
                                                 <HBox styleClass="row-container">
                                                    <children>
                                                       <Label styleClass="setting-label" text="Galvanized keyword" />
-                                                      <TextField />
+                                                      <TextField fx:id="beamEntry_galvanisedKeywordField" styleClass="setting-field" />
                                                    </children>
                                                 </HBox>
                                                 <HBox styleClass="row-container">
                                                    <children>
                                                       <Label styleClass="setting-label" text="Dimet Keyword" />
-                                                      <TextField />
+                                                      <TextField fx:id="beamEntry_dimetKeywordField" styleClass="setting-field" />
                                                    </children>
                                                 </HBox>
                                                 <HBox styleClass="row-container">
                                                    <children>
                                                       <Label styleClass="setting-label" text="Epoxy Keyword" />
-                                                      <TextField />
+                                                      <TextField fx:id="beamEntry_epoxyKeywordField" styleClass="setting-field" />
                                                    </children>
                                                 </HBox>
                                                 <HBox styleClass="row-container">
                                                    <children>
-                                                      <Button mnemonicParsing="false" styleClass="text-button" text="Test" />
+                                                      <Button mnemonicParsing="false" onAction="#handleTestBeamScheduleEntriesButtonAction" styleClass="text-button" text="Test" />
                                                    </children>
                                                 </HBox>
                                              </children>
@@ -497,54 +497,54 @@
                                                 <HBox styleClass="row-container">
                                                    <children>
                                                       <Label styleClass="setting-label" text="Internal 83mm Slab Entry" />
-                                                      <TextField />
+                                                      <TextField fx:id="slabEntry_int83mmField" styleClass="setting-field" />
                                                    </children>
                                                 </HBox>
                                                 <HBox styleClass="row-container">
                                                    <children>
                                                       <Label styleClass="setting-label" text="Balcony 2c RHS Entry" />
-                                                      <TextField />
+                                                      <TextField fx:id="slabEntry_balc2cRhsField" styleClass="setting-field" />
                                                    </children>
                                                 </HBox>
                                                 <HBox styleClass="row-container">
                                                    <children>
                                                       <Label styleClass="setting-label" text="Balcony 3c RHS Entry" />
-                                                      <TextField />
+                                                      <TextField fx:id="slabEntry_balc3cRhsField" styleClass="setting-field" />
                                                    </children>
                                                 </HBox>
                                                 <HBox styleClass="row-container">
                                                    <children>
                                                       <Label styleClass="setting-label" text="Balcony 2c INSITU Entry" />
-                                                      <TextField />
+                                                      <TextField fx:id="slabEntry_balc2cInsituField" styleClass="setting-field" />
                                                    </children>
                                                 </HBox>
                                                 <HBox styleClass="row-container">
                                                    <children>
                                                       <Label styleClass="setting-label" text="Balcony 3c INSITU Entry" />
-                                                      <TextField />
+                                                      <TextField fx:id="slabEntry_balc3cInsituField" styleClass="setting-field" />
                                                    </children>
                                                 </HBox>
                                                 <HBox styleClass="row-container">
                                                    <children>
                                                       <Label styleClass="setting-label" text="Balcony 4c INSITU Entry" />
-                                                      <TextField />
+                                                      <TextField fx:id="slabEntry_balc4cInsituField" styleClass="setting-field" />
                                                    </children>
                                                 </HBox>
                                                 <HBox styleClass="row-container">
                                                    <children>
                                                       <Label styleClass="setting-label" text="Thick Angle Entry" />
-                                                      <TextField />
+                                                      <TextField fx:id="slabEntry_thickAngleField" styleClass="setting-field" />
                                                    </children>
                                                 </HBox>
                                                 <HBox styleClass="row-container">
                                                    <children>
                                                       <Label styleClass="setting-label" text="Thin Angle Entry" />
-                                                      <TextField />
+                                                      <TextField fx:id="slabEntry_thinAngleField" styleClass="setting-field" />
                                                    </children>
                                                 </HBox>
                                                 <HBox styleClass="row-container">
                                                    <children>
-                                                      <Button mnemonicParsing="false" styleClass="text-button" text="Test" />
+                                                      <Button mnemonicParsing="false" onAction="#handleTestSlabScheduleEntriesButtonAction" styleClass="text-button" text="Test" />
                                                    </children>
                                                 </HBox>
                                              </children>
@@ -612,12 +612,12 @@
                                                 <HBox styleClass="row-container">
                                                    <children>
                                                       <Label styleClass="setting-label" text="Sheet Length Keyword" />
-                                                      <TextField />
+                                                      <TextField fx:id="sheetEntry_sheetLengthKeywordField" styleClass="setting-field" />
                                                    </children>
                                                 </HBox>
                                                 <HBox styleClass="row-container">
                                                    <children>
-                                                      <Button mnemonicParsing="false" styleClass="text-button" text="Test" />
+                                                      <Button mnemonicParsing="false" onAction="#handleTestSheetScheduleEntriesButtonAction" styleClass="text-button" text="Test" />
                                                    </children>
                                                 </HBox>
                                              </children>

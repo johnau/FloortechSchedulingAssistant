@@ -41,6 +41,9 @@ public class SettingsPresenter implements Initializable {
     @FXML private TextField schedulingFolderRootTextfield;
 
     @FXML private TextField excelScheduleSheetNameTextField;
+
+    @FXML private TableView<ColumnLayoutObject> columnLayoutTable;
+
     @FXML private ListView<String> scheduleSectionsList;
 
     @FXML private CheckBox trussExtractorEnabledCheckbox;
@@ -62,6 +65,38 @@ public class SettingsPresenter implements Initializable {
     @FXML private TextField sheetDataFileNameTextField;
     @FXML private TextField sheetDataFileExtensionTextField;
 
+    @FXML private TextField trussEntry_cw260Field;
+    @FXML private TextField trussEntry_stdEndcapCw260Field;
+    @FXML private TextField trussEntry_necEndcapCw260Field;
+    @FXML private TextField trussEntry_acPenoCw260Field;
+    @FXML private TextField trussEntry_cw346Field;
+    @FXML private TextField trussEntry_stdEndcapCw346Field;
+    @FXML private TextField trussEntry_necEndcapCw346Field;
+    @FXML private TextField trussEntry_acPenoCw346Field;
+    @FXML private TextField trussEntry_hj200Field;
+    @FXML private TextField trussEntry_stdEndcapHj200Field;
+    @FXML private TextField trussEntry_necEndcapHj200Field;
+    @FXML private TextField trussEntry_hj300Field;
+    @FXML private TextField trussEntry_stdEndcapHj300Field;
+    @FXML private TextField trussEntry_necEndcapHj300Field;
+    @FXML private TextField trussEntry_acPenoHj300Field;
+
+    @FXML private TextField beamEntry_blackKeywordField;
+    @FXML private TextField beamEntry_galvanisedKeywordField;
+    @FXML private TextField beamEntry_dimetKeywordField;
+    @FXML private TextField beamEntry_epoxyKeywordField;
+
+    @FXML private TextField slabEntry_int83mmField;
+    @FXML private TextField slabEntry_balc2cRhsField;
+    @FXML private TextField slabEntry_balc3cRhsField;
+    @FXML private TextField slabEntry_balc2cInsituField;
+    @FXML private TextField slabEntry_balc3cInsituField;
+    @FXML private TextField slabEntry_balc4cInsituField;
+    @FXML private TextField slabEntry_thickAngleField;
+    @FXML private TextField slabEntry_thinAngleField;
+
+    @FXML private TextField sheetEntry_sheetLengthKeywordField;
+
     @FXML private Button saveAndCloseButton;
     private List<Consumer<Boolean>> onSaveConsumers;
 
@@ -72,14 +107,6 @@ public class SettingsPresenter implements Initializable {
         this.setupScheduleSectionsList();
         this.setupScheduleSectionChoiceBoxes();
 
-        this.updateSettingsFromMemory();
-    }
-
-    public void addListenerOnSave(Consumer<Boolean> consumer) {
-        this.onSaveConsumers.add(consumer);
-    }
-
-    public void update() {
         this.updateSettingsFromMemory();
     }
 
@@ -133,6 +160,31 @@ public class SettingsPresenter implements Initializable {
         } else {
             LOG.debug("Choosing job files scheduling root aborted...");
         }
+    }
+
+    @FXML
+    public void handleEditSelectedColumnLayoutEntryButtonAction(ActionEvent event) {
+
+    }
+
+    @FXML
+    public void handleTestTrussScheduleEntriesButtonAction(ActionEvent event) {
+        LOG.debug("Handle Test Truss Schedule Entries not implemented");
+    }
+
+    @FXML
+    public void handleTestSheetScheduleEntriesButtonAction(ActionEvent event) {
+        LOG.debug("Handle Test Sheet Schedule Entries not implemented");
+    }
+
+    @FXML
+    public void handleTestBeamScheduleEntriesButtonAction(ActionEvent event) {
+        LOG.debug("Handle Test Beam Schedule Entries not implemented");
+    }
+
+    @FXML
+    public void handleTestSlabScheduleEntriesButtonAction(ActionEvent event) {
+        LOG.debug("Handle Test Slab Schedule Entries not implemented");
     }
 
     @FXML
@@ -238,6 +290,14 @@ public class SettingsPresenter implements Initializable {
         stage.close();
     }
 
+    public void addListenerOnSave(Consumer<Boolean> consumer) {
+        this.onSaveConsumers.add(consumer);
+    }
+
+    public void update() {
+        this.updateSettingsFromMemory();
+    }
+
     private void setupScheduleSectionsList() {
         ObservableList<String> tableData = FXCollections.observableArrayList();
         this.scheduleSectionsList.setItems(tableData);
@@ -316,22 +376,47 @@ public class SettingsPresenter implements Initializable {
             LOG.debug("Did not set detailing files root");
         }
 
-        this.settingsHolder.setSettingsGroup1(
-                this.beamExtractorEnabledCheckbox.isSelected(),
-                this.beamScheduleSectionChoiceBox.getSelectionModel().getSelectedItem(),
-                this.sheetExtractorEnabledCheckbox.isSelected(),
-                this.sheetScheduleSectionChoiceBox.getSelectionModel().getSelectedItem(),
-                this.slabExtractorEnabledCheckbox.isSelected(),
-                this.slabScheduleSectionChoiceBox.getSelectionModel().getSelectedItem(),
-                this.trussExtractorEnabledCheckbox.isSelected(),
-                this.trussScheduleSectionChoiceBox.getSelectionModel().getSelectedItem()
-        );
+        this.settingsHolder.setExcelScheduleSheetName(this.excelScheduleSheetNameTextField.getText());
 
-//        this.settingsHolder.se
+        this.settingsHolder.setBuiltInTrussExtractorEnabled(this.trussExtractorEnabledCheckbox.isSelected());
+        this.settingsHolder.setTrussScheduleSectionName(this.trussScheduleSectionChoiceBox.getSelectionModel().getSelectedItem());
+        this.settingsHolder.setScheduleEntryCw260Truss(this.trussEntry_cw260Field.getText());
+        this.settingsHolder.setScheduleEntryStandardEndcapsCw260(this.trussEntry_stdEndcapCw260Field.getText());
+        this.settingsHolder.setScheduleEntryConnectionEndcapsCw260(this.trussEntry_necEndcapCw260Field.getText());
+        this.settingsHolder.setScheduleEntryTrussAirConPenoCw260(this.trussEntry_acPenoCw260Field.getText());
+        this.settingsHolder.setScheduleEntryCw346Truss(this.trussEntry_cw346Field.getText());
+        this.settingsHolder.setScheduleEntryStandardEndcapsCw346(this.trussEntry_stdEndcapCw346Field.getText());
+        this.settingsHolder.setScheduleEntryConnectionEndcapsCw346(this.trussEntry_necEndcapCw346Field.getText());
+        this.settingsHolder.setScheduleEntryTrussAirConPenoCw346(this.trussEntry_acPenoCw346Field.getText());
+        this.settingsHolder.setScheduleEntryHj200Truss(this.trussEntry_hj200Field.getText());
+        this.settingsHolder.setScheduleEntryStandardEndcapsHj200(this.trussEntry_stdEndcapHj200Field.getText());
+        this.settingsHolder.setScheduleEntryConnectionEndcapsHj200(this.trussEntry_necEndcapHj200Field.getText());
+        this.settingsHolder.setScheduleEntryHj300Truss(this.trussEntry_hj300Field.getText());
+        this.settingsHolder.setScheduleEntryStandardEndcapsHj300(this.trussEntry_stdEndcapHj300Field.getText());
+        this.settingsHolder.setScheduleEntryConnectionEndcapsHj300(this.trussEntry_necEndcapHj300Field.getText());
+        this.settingsHolder.setScheduleEntryTrussAirConPenoHj300(this.trussEntry_acPenoHj300Field.getText());
 
-//        this.settingsHolder.setAllSettings(
-//                Paths.get(this.schedulingFolderRootTextfield.getText()),
-//                Paths.get(this.detailingFoldersRootTextfield.getText()),
+        this.settingsHolder.setBuiltInBeamExtractorEnabled(this.beamExtractorEnabledCheckbox.isSelected());
+        this.settingsHolder.setBeamScheduleSectionName(this.beamScheduleSectionChoiceBox.getSelectionModel().getSelectedItem());
+        this.settingsHolder.setScheduleEntrySteelBlackKeyword(this.beamEntry_blackKeywordField.getText());
+        this.settingsHolder.setScheduleEntrySteelGalvanisedKeyword(this.beamEntry_galvanisedKeywordField.getText());
+        this.settingsHolder.setScheduleEntrySteelDimetKeyword(this.beamEntry_dimetKeywordField.getText());
+        this.settingsHolder.setScheduleEntrySteelEpoxyKeyword(this.beamEntry_epoxyKeywordField.getText());
+
+        this.settingsHolder.setBuiltInSlabExtractorEnabled(this.slabExtractorEnabledCheckbox.isSelected());
+        this.settingsHolder.setSlabScheduleSectionName(this.slabScheduleSectionChoiceBox.getSelectionModel().getSelectedItem());
+        this.settingsHolder.setScheduleEntrySlabInternal(this.slabEntry_int83mmField.getText());
+        this.settingsHolder.setScheduleEntrySlab2cRhs(this.slabEntry_balc2cRhsField.getText());
+        this.settingsHolder.setScheduleEntrySlab3cRhs(this.slabEntry_balc3cRhsField.getText());
+        this.settingsHolder.setScheduleEntrySlab2cInsitu(this.slabEntry_balc2cInsituField.getText());
+        this.settingsHolder.setScheduleEntrySlab3cInsitu(this.slabEntry_balc3cInsituField.getText());
+        this.settingsHolder.setScheduleEntrySlab4cInsitu(this.slabEntry_balc4cInsituField.getText());
+        this.settingsHolder.setScheduleEntrySlabThickAngle(this.slabEntry_thickAngleField.getText());
+        this.settingsHolder.setScheduleEntrySlabThinAngle(this.slabEntry_thinAngleField.getText());
+
+        this.settingsHolder.setBuiltInSheetExtractorEnabled(this.sheetExtractorEnabledCheckbox.isSelected());
+        this.settingsHolder.setSheetScheduleSectionName(this.sheetScheduleSectionChoiceBox.getSelectionModel().getSelectedItem());
+        this.settingsHolder.setScheduleEntrySheetLengthKeyword(this.sheetEntry_sheetLengthKeywordField.getText());
 
     }
 
@@ -362,6 +447,35 @@ public class SettingsPresenter implements Initializable {
         String excelScheduleSheetName = this.settingsHolder.getExcelScheduleSheetName();
         List<String> scheduleSections = this.settingsHolder.getExcelScheduleFileSections();
 
+        String cw260Length = this.settingsHolder.getScheduleEntryCw260Truss();
+        String cw260StdEndcap = this.settingsHolder.getScheduleEntryStandardEndcapsCw260();
+        String cw260NecEndcap = this.settingsHolder.getScheduleEntryConnectionEndcapsCw260();
+        String cw260AcPeno = this.settingsHolder.getScheduleEntryTrussAirConPenoCw260();
+        String cw346Length = this.settingsHolder.getScheduleEntryCw346Truss();
+        String cw346StdEndcap = this.settingsHolder.getScheduleEntryStandardEndcapsCw346();
+        String cw346NecEndcap = this.settingsHolder.getScheduleEntryConnectionEndcapsCw346();
+        String cw346AcPeno = this.settingsHolder.getScheduleEntryTrussAirConPenoCw346();
+        String hj200Length = this.settingsHolder.getScheduleEntryHj200Truss();
+        String hj200StdEndcap = this.settingsHolder.getScheduleEntryStandardEndcapsHj200();
+        String hj200NecEndcap = this.settingsHolder.getScheduleEntryConnectionEndcapsHj200();
+        String hj300Length = this.settingsHolder.getScheduleEntryHj300Truss();
+        String hj300StdEndcap = this.settingsHolder.getScheduleEntryStandardEndcapsHj300();
+        String hj300NecEndcap = this.settingsHolder.getScheduleEntryConnectionEndcapsHj300();
+        String hj300AcPeno = this.settingsHolder.getScheduleEntryTrussAirConPenoHj300();
+        String beamBlackKeyword = this.settingsHolder.getScheduleEntrySteelBlackKeyword();
+        String beamGalvKeyword = this.settingsHolder.getScheduleEntrySteelGalvanisedKeyword();
+        String beamDimetKeyword = this.settingsHolder.getScheduleEntrySteelDimetKeyword();
+        String beamEpoxyKeyword = this.settingsHolder.getScheduleEntrySteelEpoxyKeyword();
+        String slabInt83mmSize = this.settingsHolder.getScheduleEntrySlabInternal();
+        String slabBalc2cRhsSize = this.settingsHolder.getScheduleEntrySlab2cRhs();
+        String slabBalc3cRhsSize = this.settingsHolder.getScheduleEntrySlab3cRhs();
+        String slabBalc2cInsituSize = this.settingsHolder.getScheduleEntrySlab2cInsitu();
+        String slabBalc3cInsituSize = this.settingsHolder.getScheduleEntrySlab3cInsitu();
+        String slabBalc4cInsituSize = this.settingsHolder.getScheduleEntrySlab4cInsitu();
+        String slabThickAngle = this.settingsHolder.getScheduleEntrySlabThickAngle();
+        String slabThinAngle = this.settingsHolder.getScheduleEntrySlabThinAngle();
+        String sheetLengthKeyword = "";
+
         this.excelScheduleSheetNameTextField.setText(excelScheduleSheetName);
         this.scheduleSectionsList.getItems().clear();
         this.scheduleSectionsList.getItems().addAll(scheduleSections); // MUST BE SET BEFORE EXTRACTOR SCHEDULE CHOICE BOXES
@@ -389,6 +503,37 @@ public class SettingsPresenter implements Initializable {
         this.beamDataFileExtensionTextField.setText(beamFileExt);
         this.beamScheduleSectionChoiceBox.setValue(beamScheduleSectionName == null ? "" : beamScheduleSectionName);
 
+        this.trussEntry_cw260Field.setText(cw260Length);
+        this.trussEntry_stdEndcapCw260Field.setText(cw260StdEndcap);
+        this.trussEntry_necEndcapCw260Field.setText(cw260NecEndcap);
+        this.trussEntry_acPenoCw260Field.setText(cw260AcPeno);
+        this.trussEntry_cw346Field.setText(cw346Length);
+        this.trussEntry_stdEndcapCw346Field.setText(cw346StdEndcap);
+        this.trussEntry_necEndcapCw346Field.setText(cw346NecEndcap);
+        this.trussEntry_acPenoCw346Field.setText(cw346AcPeno);
+        this.trussEntry_hj200Field.setText(hj200Length);
+        this.trussEntry_stdEndcapHj200Field.setText(hj200StdEndcap);
+        this.trussEntry_necEndcapHj200Field.setText(hj200NecEndcap);
+        this.trussEntry_hj300Field.setText(hj300Length);
+        this.trussEntry_stdEndcapHj300Field.setText(hj300StdEndcap);
+        this.trussEntry_necEndcapHj300Field.setText(hj300NecEndcap);
+        this.trussEntry_acPenoHj300Field.setText(hj300AcPeno);
+
+        this.beamEntry_blackKeywordField.setText(beamBlackKeyword);
+        this.beamEntry_galvanisedKeywordField.setText(beamGalvKeyword);
+        this.beamEntry_dimetKeywordField.setText(beamDimetKeyword);
+        this.beamEntry_epoxyKeywordField.setText(beamEpoxyKeyword);
+
+        this.slabEntry_int83mmField.setText(slabInt83mmSize);
+        this.slabEntry_balc2cRhsField.setText(slabBalc2cRhsSize);
+        this.slabEntry_balc3cRhsField.setText(slabBalc3cRhsSize);
+        this.slabEntry_balc2cInsituField.setText(slabBalc2cInsituSize);
+        this.slabEntry_balc3cInsituField.setText(slabBalc3cInsituSize);
+        this.slabEntry_balc4cInsituField.setText(slabBalc4cInsituSize);
+        this.slabEntry_thickAngleField.setText(slabThickAngle);
+        this.slabEntry_thinAngleField.setText(slabThinAngle);
+
+        this.sheetEntry_sheetLengthKeywordField.setText(sheetLengthKeyword);
 
     }
 }

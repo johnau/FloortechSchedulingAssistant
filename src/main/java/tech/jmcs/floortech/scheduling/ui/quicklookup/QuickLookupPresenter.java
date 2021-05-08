@@ -99,6 +99,8 @@ public class QuickLookupPresenter implements Initializable {
         this.quickLookupDataHolder.setJobFolder(jobFolderPath);
         this.statusHolder.addStatus(StatusType.IMPORTANT, "Found job folder @ " + jobFolderPath);
 
+
+
         // lookup scheduling file based on job number
         // populate text field
         // lookup job folder based on job number

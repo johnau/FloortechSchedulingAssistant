@@ -79,6 +79,8 @@ public class SettingsHolder {
     private String scheduleEntrySlabThickAngle;
     private String scheduleEntrySlabThinAngle;
 
+    private String scheduleEntrySheetLengthKeyword;
+
     private List<String> dataSourceFileNamesMap;
 
     /**
@@ -724,5 +726,13 @@ public class SettingsHolder {
 
     public void setSlabFileExtension(String slabFileExtension) {
         this.slabFileExtension = slabFileExtension;
+    }
+
+    public String getScheduleEntrySheetLengthKeyword() {
+        return scheduleEntrySheetLengthKeyword;
+    }
+
+    public void setScheduleEntrySheetLengthKeyword(String scheduleEntrySheetLengthKeyword) {
+        this.scheduleEntrySheetLengthKeyword = scheduleEntrySheetLengthKeyword;
     }
 }

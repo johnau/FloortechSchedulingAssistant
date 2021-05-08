@@ -4,10 +4,9 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.VBox?>
 
-
 <VBox fx:id="statusBox" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tech.jmcs.floortech.scheduling.ui.status.StatusPresenter">
    <children>
-      <Label text="Status" />
+      <Label text="Status Log" />
       <ListView fx:id="statusList" />
    </children>
 </VBox>
